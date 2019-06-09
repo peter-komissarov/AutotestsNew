@@ -15,7 +15,6 @@ namespace TestBase.RestApi.Services
         /// Returns GitHub branches list
         /// </summary>
         /// <param name="withLog">Log request and response or not?</param>
-        /// <returns></returns>
         public async Task<IEnumerable<BranchResponse>> GetBranchesAsync(bool withLog = true)
         {
             using (var client = new RestApiClient(GitHubUrl.GitHubBranches))

@@ -200,7 +200,6 @@ namespace TestBase.RestApi
         /// Build Uri from provided params
         /// </summary>
         /// <param name="parameters">Request params</param>
-        /// <returns></returns>
         public RestApiClient WithParams(object parameters = null)
         {
             _uri = StringHelper.BuildStringUri(_uri, parameters);

@@ -21,7 +21,6 @@ namespace TestBase.Helpers
         /// </summary>
         /// <typeparam name="T">Type of poco</typeparam>
         /// <param name="value">JSON string</param>
-        /// <returns></returns>
         public static T DeserializeJson<T>(string value)
         {
             return JsonConvert.DeserializeObject<T>(value);
