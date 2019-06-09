@@ -10,10 +10,24 @@
     <OutputType>Library</OutputType>
 
     <StartupObject />
+
+    <Configurations>Debug;Release;Prod;Test;Sandbox;Production</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|AnyCPU'">
+    <OutputPath>bin\Production</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Sandbox|AnyCPU'">
+    <OutputPath>bin\Sandbox</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|AnyCPU'">
+    <OutputPath>bin\Test</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,12 +44,6 @@
     <Compile Update="Tests\GitHubTests.cs">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

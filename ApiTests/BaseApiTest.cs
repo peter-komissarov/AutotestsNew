@@ -1,15 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestBase.IoC;
 
 namespace ApiTests
 {
     [TestClass]
     public abstract class BaseApiTest
     {
-        protected static IServiceProvider _container;
-
         /// <summary>
         /// Executes once before the test run (Optional).
         /// </summary>
@@ -18,7 +14,6 @@ namespace ApiTests
         [AssemblyInitialize]
         public static async Task TestRunSetup(TestContext context)
         {
-            _container = await IocContainer.GetContainerAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -26,7 +21,7 @@ namespace ApiTests
         /// </summary>
         /// <param name="context">TestContext class. This class should be fully abstract and not contain any members. The adapter will implement the members.</param>
         [ClassInitialize]
-        public static void TestClassSetup(TestContext context)
+        public static async Task TestClassSetup(TestContext context)
         {
         }
 
@@ -34,7 +29,7 @@ namespace ApiTests
         /// Executes before each test (Optional).
         /// </summary>
         [TestInitialize]
-        public void TestMethodSetup()
+        public async Task TestMethodSetup()
         {
         }
 
@@ -42,7 +37,7 @@ namespace ApiTests
         /// Executes after each test (Optional).
         /// </summary>
         [TestCleanup]
-        public void TestMethodCleanup()
+        public async Task TestMethodCleanup()
         {
         }
 
@@ -50,7 +45,7 @@ namespace ApiTests
         /// Executes once after all tests in this class are executed (Optional).
         /// </summary>
         [ClassCleanup]
-        public static void TestClassCleanup()
+        public static async Task TestClassCleanup()
         {
         }
 
@@ -58,7 +53,7 @@ namespace ApiTests
         /// Executes once after the test run (Optional).
         /// </summary>
         [AssemblyCleanup]
-        public static void TestRunCleanup()
+        public static async Task TestRunCleanup()
         {
         }
     }

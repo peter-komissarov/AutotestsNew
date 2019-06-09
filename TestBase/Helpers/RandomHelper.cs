@@ -5,9 +5,9 @@ using System.Threading;
 namespace TestBase.Helpers
 {
     /// <summary>
-    /// Gets the random generator.
+    /// Provides help methods for random data generation
     /// </summary>
-    public static class RandomProvider
+    public static class RandomHelper
     {
         private const string DefaultStringChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789_";
         private static int _seed = Environment.TickCount;

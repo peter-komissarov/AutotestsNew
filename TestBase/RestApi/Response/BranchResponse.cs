@@ -1,6 +1,6 @@
-﻿using TestBase.Data.Pocos;
+﻿using TestBase.Data.Poco;
 
-namespace TestBase.Data.Responses
+namespace TestBase.RestApi.Response
 {
     public class BranchResponse
     {
