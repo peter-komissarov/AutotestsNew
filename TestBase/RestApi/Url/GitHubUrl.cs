@@ -5,6 +5,6 @@
     /// </summary>
     public static class GitHubUrl
     {
-        public const string GitHubBranches = BaseUrl.GitHubBaseUrl + "repos/aspnet/AspNetCore.Docs/branches";
+        public const string GitHubBranches = Configuration.GitHubBaseUrl + "repos/aspnet/AspNetCore.Docs/branches";
     }
 }

@@ -14,7 +14,7 @@ namespace TestBase.Logger
         /// <summary>
         /// Write to console http request message
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="request">HttpRequestMessage</param>
         public static void LogRequest(HttpRequestMessage request)
         {
             var message = new StringBuilder($"Type: {request.Method}{Environment.NewLine}URI: {request.RequestUri}");
@@ -36,7 +36,7 @@ namespace TestBase.Logger
         /// <summary>
         /// Write to console http response message
         /// </summary>
-        /// <param name="poco"></param>
+        /// <param name="poco">Class</param>
         public static void LogResponse(object poco)
         {
             LogMessage($"Response:{Environment.NewLine}{JsonHelper.SerializeJson(poco)}");
@@ -45,7 +45,7 @@ namespace TestBase.Logger
         /// <summary>
         /// Write to console text message
         /// </summary>
-        /// <param name="messageText"></param>
+        /// <param name="messageText">String text</param>
         public static void LogMessage(string messageText)
         {
             Console.WriteLine($"{DateTimeHelper.GetCurrentDateTime()}{Environment.NewLine}{messageText}{Environment.NewLine}");

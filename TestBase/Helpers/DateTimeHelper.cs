@@ -13,6 +13,9 @@ namespace TestBase.Helpers
         /// <summary>
         /// Returns current DateTime as formatted string 
         /// </summary>
-        public static string GetCurrentDateTime() => DateTime.UtcNow.ToString(dateTimeFormat, new CultureInfo("en-US"));
+        public static string GetCurrentDateTime()
+        {
+            return DateTime.UtcNow.ToString(dateTimeFormat, new CultureInfo("en-US"));
+        }
     }
 }
