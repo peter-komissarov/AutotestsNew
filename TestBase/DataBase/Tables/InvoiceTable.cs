@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
+using Dapper;
 using TestBase.DataBase.Entity;
 
 namespace TestBase.DataBase.Tables
@@ -11,18 +14,19 @@ namespace TestBase.DataBase.Tables
         /// <summary>
         /// Select record async from [Invoice]  table
         /// </summary>
-        /// <param name="invoiceId">Invoice id</param>
+        /// <param name="userId">User identifier</param>
         /// <param name="connectionString">Stroke string for connecting to database</param>
         /// <returns>Success query result or not?</returns>
-        public async Task<Invoice> GetByInvoiceIdAsync(int invoiceId, string connectionString = Configuration.TestDatabase)
+        public async Task<Invoice> GetInvoiceByUserIdAsync(Guid userId, string connectionString = Configuration.TestDatabase)
         {
-            using (var client = new DbClient(connectionString))
-            {
-                var entity = await client
-                    .GetByIdentifierAsync<Invoice>(invoiceId)
-                    .ConfigureAwait(false);
+            const string sql = "SELECT TOP (1) * FROM [Invoices] WHERE UserId = @UserId";
 
-                return entity;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync().ConfigureAwait(false);
+                var invoice = await connection.QuerySingleOrDefaultAsync<Invoice>(sql, new {UserId = userId}).ConfigureAwait(false);
+
+                return invoice;
             }
         }
     }

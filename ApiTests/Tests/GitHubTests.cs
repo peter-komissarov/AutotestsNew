@@ -18,9 +18,9 @@ namespace ApiTests.Tests
         public async Task GetBranches_Positive()
         {
             var invoice = await new InvoiceTable()
-                .GetByInvoiceIdAsync(1068)
+                .GetInvoiceByUserIdAsync(new Guid("01C4D55C-B94D-473B-B4FE-B84CC6F77DC3"))
                 .ConfigureAwait(false);
-            Assert.IsTrue(invoice.OperationGuid == new Guid("D117A65E-FD2E-4767-91A6-ED3528A3D206"));
+            Assert.IsTrue(invoice.InvoiceId == 870);
 
             var branches = await new GitHubService()
                 .GetBranchesAsync()

@@ -12,7 +12,7 @@ namespace ApiTests
         /// <param name="context">TestContext class. This class should be fully abstract and not contain any members. The adapter will implement the members.</param>
         /// <returns>A new <see cref="T:System.Threading.Tasks.Task" /> with the specified action.</returns>
         [AssemblyInitialize]
-        public static async Task TestRunSetup(TestContext context)
+        public static void TestRunSetup(TestContext context)
         {
         }
 
@@ -21,7 +21,7 @@ namespace ApiTests
         /// </summary>
         /// <param name="context">TestContext class. This class should be fully abstract and not contain any members. The adapter will implement the members.</param>
         [ClassInitialize]
-        public static async Task TestClassSetup(TestContext context)
+        public static void TestClassSetup(TestContext context)
         {
         }
 
@@ -29,7 +29,7 @@ namespace ApiTests
         /// Executes before each test (Optional).
         /// </summary>
         [TestInitialize]
-        public async Task TestMethodSetup()
+        public void TestMethodSetup()
         {
         }
 
@@ -37,7 +37,7 @@ namespace ApiTests
         /// Executes after each test (Optional).
         /// </summary>
         [TestCleanup]
-        public async Task TestMethodCleanup()
+        public void TestMethodCleanup()
         {
         }
 
@@ -45,7 +45,7 @@ namespace ApiTests
         /// Executes once after all tests in this class are executed (Optional).
         /// </summary>
         [ClassCleanup]
-        public static async Task TestClassCleanup()
+        public static void TestClassCleanup()
         {
         }
 
@@ -53,7 +53,7 @@ namespace ApiTests
         /// Executes once after the test run (Optional).
         /// </summary>
         [AssemblyCleanup]
-        public static async Task TestRunCleanup()
+        public static void TestRunCleanup()
         {
         }
     }

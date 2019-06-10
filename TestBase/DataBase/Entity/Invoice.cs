@@ -1,16 +1,13 @@
 ﻿using System;
-using Dapper.Contrib.Extensions;
 
 namespace TestBase.DataBase.Entity
 {
     /// <summary>
     /// Сущность инвойса
     /// </summary>
-    [Table("Invoices")]
     public class Invoice
     {
         /// <summary>Идентификатор инвойса</summary>
-        [Key]
         public int InvoiceId { get; set; }
 
         /// <summary>
