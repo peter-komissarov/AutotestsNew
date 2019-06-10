@@ -14,13 +14,13 @@ namespace ApiTests.Tests
     public class GitHubTests : BaseApiTest
     {
         [TestMethod]
-        [Description("Assert that github branches count more than 30")]
+        [Description("Assert that github branches count equal or more than 30")]
         public async Task GetBranches_Positive()
         {
             var invoice = await new InvoiceTable()
                 .GetInvoiceByUserIdAsync(new Guid("01C4D55C-B94D-473B-B4FE-B84CC6F77DC3"))
                 .ConfigureAwait(false);
-            Assert.IsTrue(invoice.InvoiceId == 870);
+            Assert.IsTrue(invoice.InvoiceId == 870, $"Expected InvoiceId is 870, but founded {invoice.InvoiceId}");
 
             var branches = await new GitHubService()
                 .GetBranchesAsync()
