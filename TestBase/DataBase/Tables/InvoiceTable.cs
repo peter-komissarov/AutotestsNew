@@ -12,11 +12,10 @@ namespace TestBase.DataBase.Tables
     public class InvoiceTable
     {
         /// <summary>
-        /// Select record async from [Invoice]  table
+        /// Returns record async from [Invoice]  table
         /// </summary>
         /// <param name="userId">User identifier</param>
         /// <param name="connectionString">Stroke string for connecting to database</param>
-        /// <returns>Success query result or not?</returns>
         public async Task<Invoice> GetInvoiceByUserIdAsync(Guid userId, string connectionString = Configuration.TestDatabase)
         {
             const string sql = "SELECT TOP (1) * FROM [Invoices] WHERE UserId = @UserId";
