@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using TestBase.Helpers;
@@ -22,11 +21,16 @@ namespace TestBase.Logger
             if (request.Headers != null)
             {
                 message.Append($"{Environment.NewLine}Headers:");
-                request.Headers.ToList().ForEach(header => message.Append($"{Environment.NewLine}{JsonHelper.SerializeJson(header)}"));
+
+                foreach (var header in request.Headers)
+                {
+                    message.Append($"{Environment.NewLine}{JsonHelper.SerializeJson(header)}");
+                }
             }
 
             if (request.Content != null)
             {
+                message.Append($"{Environment.NewLine}Content:");
                 message.Append($"{Environment.NewLine}{JsonHelper.SerializeJson(request.Content)}");
             }
 

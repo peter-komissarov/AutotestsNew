@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
+using System.Text;
 
 namespace TestBase.Helpers
 {
@@ -18,29 +16,17 @@ namespace TestBase.Helpers
         public static string BuildStringUri(string uri, object parameters)
         {
             var uriBuilder = new UriBuilder(uri);
-            var queryParams = parameters.GetType()
-                .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .AsParallel()
-                .AsUnordered()
-                .Where(prop => prop.GetValue(parameters, null) != null)
-                .Select(
-                    prop =>
-                        prop.Name + "=" +
-                        Uri.EscapeDataString(
-                            string.Format(
-                                CultureInfo.InvariantCulture,
-                                "{0}",
-                                prop.GetValue(parameters, null))));
+            var uriQuery = new StringBuilder();
 
-            if (!string.IsNullOrEmpty(uriBuilder.Query) && uriBuilder.Query.Length > 1)
+            var type = parameters.GetType();
+            var propertyInfos = type.GetProperties();
+
+            foreach (var propertyInfo in propertyInfos)
             {
-                uriBuilder.Query = uriBuilder.Query.Substring(1) + "&" + string.Join("&", queryParams);
-            }
-            else
-            {
-                uriBuilder.Query = string.Join("&", queryParams);
+                uriQuery.Append($"{propertyInfo.Name}={propertyInfo.GetValue(parameters, null)}&");
             }
 
+            uriBuilder.Query = uriQuery.Remove(uriQuery.Length - 1, 1).ToString();
             return uriBuilder.ToString();
         }
     }

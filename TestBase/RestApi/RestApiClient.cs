@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -191,7 +190,10 @@ namespace TestBase.RestApi
         /// <param name="headers">Http request headers</param>
         public RestApiClient WithHeaders(Dictionary<string, string> headers)
         {
-            headers.ToList().ForEach(header => _request.Headers.Add(header.Key, header.Value));
+            foreach (var header in headers)
+            {
+                _request.Headers.Add(header.Key, header.Value);
+            }
 
             return this;
         }
