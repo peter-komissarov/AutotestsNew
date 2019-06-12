@@ -5,7 +5,7 @@ using System.Threading;
 namespace TestBase.Helpers
 {
     /// <summary>
-    /// Provides help methods for random data generation
+    /// Provides help methods for random data generation.
     /// </summary>
     public static class RandomHelper
     {

@@ -9,7 +9,7 @@ using TestBase.Helpers;
 namespace TestBase.RestApi
 {
     /// <summary>
-    /// REST API client
+    /// REST API client.
     /// </summary>
     public class RestApiClient : IDisposable
     {
@@ -36,11 +36,11 @@ namespace TestBase.RestApi
         }
 
         /// <summary>
-        /// Execute async delete http method
+        /// Execute async delete http method.
         /// </summary>
-        /// <typeparam name="T">Poco type</typeparam>
+        /// <typeparam name="T">Poco class.</typeparam>
         /// <param name="withLog">Log request and response or not?</param>
-        /// <returns>Poco type of T</returns>
+        /// <returns>Poco class type of T.</returns>
         public async Task<T> DeleteAsync<T>(bool withLog = true)
         {
             _request.Method = HttpMethod.Delete;
@@ -57,11 +57,11 @@ namespace TestBase.RestApi
         }
 
         /// <summary>
-        /// Execute async get http method
+        /// Execute async get http method.
         /// </summary>
-        /// <typeparam name="T">Poco type</typeparam>
+        /// <typeparam name="T">Poco class.</typeparam>
         /// <param name="withLog">Log request and response or not?</param>
-        /// <returns>Poco type of T</returns>
+        /// <returns>Poco class type of T.</returns>
         public async Task<T> GetAsync<T>(bool withLog = true)
         {
             _request.Method = HttpMethod.Get;
@@ -78,11 +78,11 @@ namespace TestBase.RestApi
         }
 
         /// <summary>
-        /// Execute async post http method
+        /// Execute async post http method.
         /// </summary>
-        /// <typeparam name="T">Poco type</typeparam>
+        /// <typeparam name="T">Poco class type.</typeparam>
         /// <param name="withLog">Log request and response or not?</param>
-        /// <returns>Poco type of T</returns>
+        /// <returns>Poco class type of T.</returns>
         public async Task<T> PostJsonAsync<T>(bool withLog = true)
         {
             _request.Method = HttpMethod.Post;
@@ -99,11 +99,11 @@ namespace TestBase.RestApi
         }
 
         /// <summary>
-        /// Execute async put http method
+        /// Execute async put http method.
         /// </summary>
-        /// <typeparam name="T">Poco type</typeparam>
+        /// <typeparam name="T">Poco class type.</typeparam>
         /// <param name="withLog">Log request and response or not?</param>
-        /// <returns>Poco type of T</returns>
+        /// <returns>Poco class type of T.</returns>
         public async Task<T> PutJsonAsync<T>(bool withLog = true)
         {
             _request.Method = HttpMethod.Put;
@@ -133,10 +133,10 @@ namespace TestBase.RestApi
         }
 
         /// <summary>
-        /// Add auth with login and password to request
+        /// Add auth with login and password to request.
         /// </summary>
-        /// <param name="login">User login</param>
-        /// <param name="password">User password</param>
+        /// <param name="login">User login.</param>
+        /// <param name="password">User password.</param>
         public RestApiClient WithBasicAuth(string login, string password)
         {
             var base64String = Convert.ToBase64String(Encoding.UTF8.GetBytes(login + ":" + password));
@@ -145,9 +145,9 @@ namespace TestBase.RestApi
         }
 
         /// <summary>
-        /// Add auth bearer token to request
+        /// Add auth bearer token to request.
         /// </summary>
-        /// <param name="token">Bearer token</param>
+        /// <param name="token">Bearer token.</param>
         public RestApiClient WithBearerToken(string token)
         {
             WithHeaders(new Dictionary<string, string> {{"Authorization", "Bearer " + token}});
@@ -155,9 +155,9 @@ namespace TestBase.RestApi
         }
 
         /// <summary>
-        /// Add http content to request
+        /// Add http content to request.
         /// </summary>
-        /// <param name="content">Http content</param>
+        /// <param name="content">Http content.</param>
         public RestApiClient WithContent(object content)
         {
             _request.Content = JsonHelper.BuildStringContent(content);
@@ -165,10 +165,10 @@ namespace TestBase.RestApi
         }
 
         /// <summary>
-        /// Add header to request
+        /// Add header to request.
         /// </summary>
-        /// <param name="key">Http header name</param>
-        /// <param name="value">Http header value</param>
+        /// <param name="key">Http header name.</param>
+        /// <param name="value">Http header value.</param>
         public RestApiClient WithHeader(string key, string value)
         {
             _request.Headers.Add(key, value);
@@ -176,9 +176,9 @@ namespace TestBase.RestApi
         }
 
         /// <summary>
-        /// Add headers to request
+        /// Add headers to request.
         /// </summary>
-        /// <param name="headers">Http request headers</param>
+        /// <param name="headers">Http request headers collection.</param>
         public RestApiClient WithHeaders(Dictionary<string, string> headers)
         {
             foreach (var header in headers)
@@ -190,9 +190,9 @@ namespace TestBase.RestApi
         }
 
         /// <summary>
-        /// Build Uri from provided params
+        /// Build Uri from provided params.
         /// </summary>
-        /// <param name="parameters">Request params</param>
+        /// <param name="parameters">Request params.</param>
         public RestApiClient WithParams(object parameters = null)
         {
             _uri = StringHelper.BuildStringUri(_uri, parameters);
@@ -200,9 +200,9 @@ namespace TestBase.RestApi
         }
 
         /// <summary>
-        /// Add Task cancel timeout to request
+        /// Add Task cancel timeout to request.
         /// </summary>
-        /// <param name="timeout">Timeout value</param>
+        /// <param name="timeout">Timeout value.</param>
         public RestApiClient WithTimeout(TimeSpan timeout)
         {
             var cancellationTokenSource = new CancellationTokenSource();

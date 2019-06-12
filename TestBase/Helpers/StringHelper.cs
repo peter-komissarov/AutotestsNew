@@ -4,15 +4,15 @@ using System.Text;
 namespace TestBase.Helpers
 {
     /// <summary>
-    /// Provides help methods for strings type
+    /// Provides help methods for strings type.
     /// </summary>
     public static class StringHelper
     {
         /// <summary>
-        /// Build absolute Uri with params
+        /// Build absolute Uri with params.
         /// </summary>
-        /// <param name="uri">Uri without params</param>
-        /// <param name="parameters">Request params</param>
+        /// <param name="uri">Uri without params.</param>
+        /// <param name="parameters">Request params.</param>
         public static string BuildStringUri(string uri, object parameters)
         {
             var uriBuilder = new UriBuilder(uri);

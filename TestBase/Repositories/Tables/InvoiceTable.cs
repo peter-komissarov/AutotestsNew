@@ -7,7 +7,7 @@ using TestBase.Repositories.Entities;
 namespace TestBase.Repositories.Tables
 {
     /// <summary>
-    /// Table [Invoice]
+    /// Table [Invoice].
     /// </summary>
     public class InvoiceTable
     {
@@ -19,9 +19,9 @@ namespace TestBase.Repositories.Tables
         }
 
         /// <summary>
-        /// Returns record async from [Invoice]  table
+        /// Returns record async from [Invoice]  table.
         /// </summary>
-        /// <param name="userId">User identifier</param>
+        /// <param name="userId">User identifier.</param>
         public async Task<Invoice> GetByUserIdAsync(Guid userId)
         {
             const string sql = "SELECT TOP (1) * FROM [Invoices] WHERE UserId = @UserId";

@@ -1,7 +1,7 @@
 ﻿namespace TestBase.RestApi.Services.GitHub
 {
     /// <summary>
-    /// GitHub urls
+    /// GitHub urls.
     /// </summary>
     public static class GitHubUrls
     {

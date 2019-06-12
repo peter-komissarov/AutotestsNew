@@ -5,12 +5,12 @@ using TestBase.RestApi.Services.GitHub.Responses;
 namespace TestBase.RestApi.Services.GitHub
 {
     /// <summary>
-    /// GitHub service implementation
+    /// GitHub service implementation.
     /// </summary>
     public class GitHubService
     {
         /// <summary>
-        /// Returns GitHub branches list
+        /// Returns GitHub branches list.
         /// </summary>
         /// <param name="withLog">Log request and response or not?</param>
         public async Task<IEnumerable<BranchResponse>> GetBranchesAsync(bool withLog = true)

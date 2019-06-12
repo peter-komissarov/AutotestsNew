@@ -11,12 +11,27 @@ namespace TestBase.Helpers
     public static class LogHelper
     {
         /// <summary>
-        /// Write to console http request message
+        /// Write to console value object with description.
         /// </summary>
-        /// <param name="request">HttpRequestMessage</param>
+        /// <param name="description">Text description of object.</param>
+        /// <param name="value">Value object for logging.</param>
+        public static void WriteValue(string description, object value)
+        {
+            WriteText($"{description}:"
+                + $"{Environment.NewLine}"
+                + $"{value}");
+        }
+
+        /// <summary>
+        /// Write to console http request message.
+        /// </summary>
+        /// <param name="request">HttpRequestMessage.</param>
         public static void WriteRequest(HttpRequestMessage request)
         {
-            var message = new StringBuilder($"Type: {request.Method}{Environment.NewLine}URI: {request.RequestUri}");
+            var message = new StringBuilder(
+                $"Type: {request.Method}"
+                + $"{Environment.NewLine}"
+                + $"URI: {request.RequestUri}");
 
             if (request.Headers != null)
             {
@@ -38,18 +53,20 @@ namespace TestBase.Helpers
         }
 
         /// <summary>
-        /// Write to console http response message
+        /// Write to console http response message.
         /// </summary>
         /// <param name="poco">Class</param>
         public static void WriteResponse(object poco)
         {
-            WriteText($"Response:{Environment.NewLine}{JsonHelper.SerializeJson(poco)}");
+            WriteText("Response:"
+                + $"{Environment.NewLine}"
+                + $"{JsonHelper.SerializeJson(poco)}");
         }
 
         /// <summary>
-        /// Write to console text message
+        /// Write to console text message.
         /// </summary>
-        /// <param name="messageText">String text</param>
+        /// <param name="messageText">String text.</param>
         public static void WriteText(string messageText)
         {
             Console.WriteLine($"{DateTime.UtcNow.ToString(Configuration.DateTimeFormat, new CultureInfo(Configuration.Language))}"

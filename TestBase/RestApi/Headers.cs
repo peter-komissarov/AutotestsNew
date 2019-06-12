@@ -3,7 +3,7 @@
 namespace TestBase.RestApi
 {
     /// <summary>
-    /// Http request headers
+    /// Http request headers.
     /// </summary>
     public static class Headers
     {
