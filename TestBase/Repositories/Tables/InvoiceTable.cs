@@ -2,9 +2,9 @@
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
-using TestBase.DataBase.Entities;
+using TestBase.Repositories.Entities;
 
-namespace TestBase.DataBase.Tables
+namespace TestBase.Repositories.Tables
 {
     /// <summary>
     /// Table [Invoice]

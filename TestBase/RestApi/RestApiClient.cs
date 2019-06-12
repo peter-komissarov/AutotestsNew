@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TestBase.Helpers;
-using TestBase.Logger;
 
 namespace TestBase.RestApi
 {
@@ -49,7 +48,7 @@ namespace TestBase.RestApi
 
             if (withLog)
             {
-                TestLogger.LogRequest(_request);
+                LogHelper.WriteRequest(_request);
             }
 
             var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
@@ -71,7 +70,7 @@ namespace TestBase.RestApi
 
             if (withLog)
             {
-                TestLogger.LogRequest(_request);
+                LogHelper.WriteRequest(_request);
             }
 
             var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
@@ -93,7 +92,7 @@ namespace TestBase.RestApi
 
             if (withLog)
             {
-                TestLogger.LogRequest(_request);
+                LogHelper.WriteRequest(_request);
             }
 
             var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
@@ -115,7 +114,7 @@ namespace TestBase.RestApi
 
             if (withLog)
             {
-                TestLogger.LogRequest(_request);
+                LogHelper.WriteRequest(_request);
             }
 
             var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
@@ -131,7 +130,7 @@ namespace TestBase.RestApi
 
             if (withLog)
             {
-                TestLogger.LogResponse(poco);
+                LogHelper.WriteResponse(poco);
             }
 
             return poco;

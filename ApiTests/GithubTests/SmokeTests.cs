@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestBase.DataBase.Tables;
+using TestBase.Repositories.Tables;
 using TestBase.RestApi.Services.GitHub;
 
 namespace ApiTests.GithubTests

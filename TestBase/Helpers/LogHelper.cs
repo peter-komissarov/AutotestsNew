@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text;
-using TestBase.Helpers;
 
-namespace TestBase.Logger
+namespace TestBase.Helpers
 {
     /// <summary>
     /// Console logger implementation
     /// </summary>
-    public static class TestLogger
+    public static class LogHelper
     {
         /// <summary>
         /// Write to console http request message
         /// </summary>
         /// <param name="request">HttpRequestMessage</param>
-        public static void LogRequest(HttpRequestMessage request)
+        public static void WriteRequest(HttpRequestMessage request)
         {
             var message = new StringBuilder($"Type: {request.Method}{Environment.NewLine}URI: {request.RequestUri}");
 
@@ -34,23 +33,23 @@ namespace TestBase.Logger
                 message.Append($"{Environment.NewLine}{JsonHelper.SerializeJson(request.Content)}");
             }
 
-            LogMessage(message.ToString());
+            WriteText(message.ToString());
         }
 
         /// <summary>
         /// Write to console http response message
         /// </summary>
         /// <param name="poco">Class</param>
-        public static void LogResponse(object poco)
+        public static void WriteResponse(object poco)
         {
-            LogMessage($"Response:{Environment.NewLine}{JsonHelper.SerializeJson(poco)}");
+            WriteText($"Response:{Environment.NewLine}{JsonHelper.SerializeJson(poco)}");
         }
 
         /// <summary>
         /// Write to console text message
         /// </summary>
         /// <param name="messageText">String text</param>
-        public static void LogMessage(string messageText)
+        public static void WriteText(string messageText)
         {
             Console.WriteLine($"{DateTimeHelper.GetCurrentDateTime()}{Environment.NewLine}{messageText}{Environment.NewLine}");
         }
