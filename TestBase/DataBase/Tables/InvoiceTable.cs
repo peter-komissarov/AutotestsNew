@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
-using TestBase.DataBase.Entity;
+using TestBase.DataBase.Entities;
 
 namespace TestBase.DataBase.Tables
 {

@@ -1,6 +1,6 @@
-﻿using TestBase.Data.Poco;
+﻿using TestBase.Data.PocoClasses;
 
-namespace TestBase.RestApi.Response
+namespace TestBase.RestApi.Services.GitHub.Responses
 {
     public class BranchResponse
     {

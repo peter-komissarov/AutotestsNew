@@ -12,7 +12,12 @@ namespace TestBase.Helpers
         private const string DefaultStringChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789_";
         private static int _seed = Environment.TickCount;
 
-        private static readonly ThreadLocal<Random> RandomWrapper = new ThreadLocal<Random>(() => new Random(Interlocked.Increment(ref _seed)));
+        private static readonly ThreadLocal<Random> RandomWrapper = new ThreadLocal<Random>(GetUniqueRandom);
+
+        private static Random GetUniqueRandom()
+        {
+            return new Random(Interlocked.Increment(ref _seed));
+        }
 
         private static Random GetThreadRandom()
         {

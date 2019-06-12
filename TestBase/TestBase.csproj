@@ -29,4 +29,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Enums\" />
+    <Folder Include="Data\Сonstants\" />
+    <Folder Include="RestApi\Services\GitHub\Requests\" />
+  </ItemGroup>
+
 </Project>

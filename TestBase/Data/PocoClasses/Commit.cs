@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestBase.Data.Poco
+namespace TestBase.Data.PocoClasses
 {
     public class Commit
     {

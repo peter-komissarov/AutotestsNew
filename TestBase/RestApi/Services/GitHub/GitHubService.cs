@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TestBase.RestApi.Headers;
-using TestBase.RestApi.Response;
-using TestBase.RestApi.Url;
+using TestBase.RestApi.Services.GitHub.Responses;
 
-namespace TestBase.RestApi.Services
+namespace TestBase.RestApi.Services.GitHub
 {
     /// <summary>
     /// GitHub service implementation
@@ -17,10 +15,10 @@ namespace TestBase.RestApi.Services
         /// <param name="withLog">Log request and response or not?</param>
         public async Task<IEnumerable<BranchResponse>> GetBranchesAsync(bool withLog = true)
         {
-            using (var client = new RestApiClient(GitHubUrl.GitHubBranches))
+            using (var client = new RestApiClient(GitHubUrls.GitHubBranches))
             {
                 var branches = await client
-                    .WithHeaders(RequestHeaders.GitHubHeaders)
+                    .WithHeaders(Headers.GitHubHeaders)
                     .GetAsync<IEnumerable<BranchResponse>>(withLog)
                     .ConfigureAwait(false);
 

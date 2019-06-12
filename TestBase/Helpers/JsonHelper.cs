@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Net.Http;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace TestBase.Helpers
 {
@@ -7,13 +9,15 @@ namespace TestBase.Helpers
     /// </summary>
     public static class JsonHelper
     {
+
         /// <summary>
-        /// Returns string from JSON object 
+        /// Returns StringContent from object content
         /// </summary>
-        /// <param name="value">JSON object</param>
-        public static string SerializeJson(object value)
+        /// <param name="content">Http content</param>
+        public static StringContent BuildStringContent(object content)
         {
-            return JsonConvert.SerializeObject(value, Formatting.Indented);
+            var json = SerializeJson(content);
+            return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
         /// <summary>
@@ -24,6 +28,15 @@ namespace TestBase.Helpers
         public static T DeserializeJson<T>(string value)
         {
             return JsonConvert.DeserializeObject<T>(value);
+        }
+
+        /// <summary>
+        /// Returns string from JSON object 
+        /// </summary>
+        /// <param name="value">JSON object</param>
+        public static string SerializeJson(object value)
+        {
+            return JsonConvert.SerializeObject(value, Formatting.Indented);
         }
     }
 }

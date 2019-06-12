@@ -3,18 +3,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestBase.DataBase.Tables;
-using TestBase.RestApi.Services;
+using TestBase.RestApi.Services.GitHub;
 
-namespace ApiTests.Tests
+namespace ApiTests.GithubTests
 {
     /// <summary>
     /// GitHub tests
     /// </summary>
     [TestClass]
-    public class GitHubTests : BaseApiTest
+    public class SmokeTests : BaseApiTest
     {
+        [Description("Assert that github branches count is equal or more than 30")]
         [TestMethod]
-        [Description("Assert that github branches count equal or more than 30")]
         public async Task GetBranches_Positive()
         {
             var invoice = await new InvoiceTable()

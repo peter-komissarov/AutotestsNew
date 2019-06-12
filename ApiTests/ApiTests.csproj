@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Tests\GitHubTests.cs">
+    <Compile Update="GithubTests\SmokeTests.cs">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>

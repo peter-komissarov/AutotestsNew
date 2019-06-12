@@ -167,7 +167,7 @@ namespace TestBase.RestApi
         /// <param name="content">Http content</param>
         public RestApiClient WithContent(object content)
         {
-            _request.Content = ObjectHelper.BuildStringContent(content);
+            _request.Content = JsonHelper.BuildStringContent(content);
 
             return this;
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestBase.DataBase.Entity
+namespace TestBase.DataBase.Entities
 {
     /// <summary>
     /// Сущность инвойса
