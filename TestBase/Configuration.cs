@@ -6,6 +6,7 @@
     public static class Configuration
     {
 #if PRODUCTION
+
         #region Production environment constants
 
         // Base URLs
@@ -17,6 +18,7 @@
         #endregion
 
 #elif SANDBOX
+
         #region Sandbox environment constants
 
         // Base URLs
