@@ -53,7 +53,6 @@ namespace TestBase.RestApi
 
             var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
             var poco = await ReceivePocoAsync<T>(response, withLog).ConfigureAwait(false);
-
             return poco;
         }
 
@@ -75,7 +74,6 @@ namespace TestBase.RestApi
 
             var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
             var poco = await ReceivePocoAsync<T>(response, withLog).ConfigureAwait(false);
-
             return poco;
         }
 
@@ -97,7 +95,6 @@ namespace TestBase.RestApi
 
             var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
             var poco = await ReceivePocoAsync<T>(response, withLog).ConfigureAwait(false);
-
             return poco;
         }
 
@@ -119,7 +116,6 @@ namespace TestBase.RestApi
 
             var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
             var poco = await ReceivePocoAsync<T>(response, withLog).ConfigureAwait(false);
-
             return poco;
         }
 
@@ -145,7 +141,6 @@ namespace TestBase.RestApi
         {
             var base64String = Convert.ToBase64String(Encoding.UTF8.GetBytes(login + ":" + password));
             WithHeaders(new Dictionary<string, string> {{"Authorization", "Basic " + base64String}});
-
             return this;
         }
 
@@ -156,7 +151,6 @@ namespace TestBase.RestApi
         public RestApiClient WithBearerToken(string token)
         {
             WithHeaders(new Dictionary<string, string> {{"Authorization", "Bearer " + token}});
-
             return this;
         }
 
@@ -167,7 +161,6 @@ namespace TestBase.RestApi
         public RestApiClient WithContent(object content)
         {
             _request.Content = JsonHelper.BuildStringContent(content);
-
             return this;
         }
 
@@ -179,7 +172,6 @@ namespace TestBase.RestApi
         public RestApiClient WithHeader(string key, string value)
         {
             _request.Headers.Add(key, value);
-
             return this;
         }
 
@@ -204,7 +196,6 @@ namespace TestBase.RestApi
         public RestApiClient WithParams(object parameters = null)
         {
             _uri = StringHelper.BuildStringUri(_uri, parameters);
-
             return this;
         }
 
@@ -215,9 +206,9 @@ namespace TestBase.RestApi
         public RestApiClient WithTimeout(TimeSpan timeout)
         {
             var cancellationTokenSource = new CancellationTokenSource();
+
             cancellationTokenSource.CancelAfter(timeout);
             _cancellationToken = cancellationTokenSource.Token;
-
             return this;
         }
 

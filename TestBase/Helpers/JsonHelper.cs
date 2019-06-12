@@ -9,7 +9,6 @@ namespace TestBase.Helpers
     /// </summary>
     public static class JsonHelper
     {
-
         /// <summary>
         /// Returns StringContent from object content
         /// </summary>

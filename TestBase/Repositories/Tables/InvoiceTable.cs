@@ -24,7 +24,6 @@ namespace TestBase.Repositories.Tables
             {
                 await connection.OpenAsync().ConfigureAwait(false);
                 var invoice = await connection.QuerySingleOrDefaultAsync<Invoice>(sql, new {UserId = userId}).ConfigureAwait(false);
-
                 return invoice;
             }
         }
