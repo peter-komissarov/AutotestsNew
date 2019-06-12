@@ -13,6 +13,10 @@
 
         // Connections strings
         public const string TestDatabase = "production_environment_connections_string";
+                
+        // Others
+        public const string DateTimeFormat = "production_environment_datetime_format";
+        public const string Language = "test_environment_language";
 
         #endregion
 
@@ -24,6 +28,10 @@
 
         // Connections strings
         public const string TestDatabase = "sandbox_environment_connections_string";
+        
+        // Others
+        public const string DateTimeFormat = "sandbox_environment_datetime_format";
+        public const string Language = "sandbox_environment_language";
 
         #endregion
 
@@ -35,8 +43,16 @@
         public const string GitHubBaseUrl = "https://api.github.com/";
 
         // Connections strings
-        public const string TestDatabase =
-            "data source=SCV-BD01.swiftcom.corp;initial catalog=test_epayments;User ID=dev;Password=uchMeIvank;Max Pool Size=1024;Pooling=true;";
+        public const string TestDatabase = "data source=SCV-BD01.swiftcom.corp;"
+            + "initial catalog=test_epayments;"
+            + "User ID=dev;"
+            + "Password=uchMeIvank;"
+            + "Max Pool Size=1024;"
+            + "Pooling=true;";
+
+        // Others
+        public const string DateTimeFormat = "dddd, dd MMMM yyyy HH:mm:ss.fff";
+        public const string Language = "en-US";
 
         #endregion
 

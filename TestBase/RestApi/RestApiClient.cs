@@ -83,7 +83,7 @@ namespace TestBase.RestApi
         /// <typeparam name="T">Poco type</typeparam>
         /// <param name="withLog">Log request and response or not?</param>
         /// <returns>Poco type of T</returns>
-        public async Task<T> PostAsync<T>(bool withLog = true)
+        public async Task<T> PostJsonAsync<T>(bool withLog = true)
         {
             _request.Method = HttpMethod.Post;
             _request.RequestUri = new Uri(_uri);
@@ -104,7 +104,7 @@ namespace TestBase.RestApi
         /// <typeparam name="T">Poco type</typeparam>
         /// <param name="withLog">Log request and response or not?</param>
         /// <returns>Poco type of T</returns>
-        public async Task<T> PutAsync<T>(bool withLog = true)
+        public async Task<T> PutJsonAsync<T>(bool withLog = true)
         {
             _request.Method = HttpMethod.Put;
             _request.RequestUri = new Uri(_uri);

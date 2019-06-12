@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Text;
 
@@ -51,7 +52,9 @@ namespace TestBase.Helpers
         /// <param name="messageText">String text</param>
         public static void WriteText(string messageText)
         {
-            Console.WriteLine($"{DateTimeHelper.GetCurrentDateTime()}{Environment.NewLine}{messageText}{Environment.NewLine}");
+            Console.WriteLine($"{DateTime.UtcNow.ToString(Configuration.DateTimeFormat, new CultureInfo(Configuration.Language))}"
+                + $"{Environment.NewLine}"
+                + $"{messageText}{Environment.NewLine}");
         }
     }
 }

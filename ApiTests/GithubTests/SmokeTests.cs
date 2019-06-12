@@ -18,7 +18,7 @@ namespace ApiTests.GithubTests
         public async Task GetBranches_Positive()
         {
             var invoice = await new InvoiceTable()
-                .GetInvoiceByUserIdAsync(new Guid("01C4D55C-B94D-473B-B4FE-B84CC6F77DC3"))
+                .GetByUserIdAsync(new Guid("01C4D55C-B94D-473B-B4FE-B84CC6F77DC3"))
                 .ConfigureAwait(false);
             Assert.IsTrue(invoice.InvoiceId == 870, $"Expected InvoiceId is 870, but founded {invoice.InvoiceId}");
 

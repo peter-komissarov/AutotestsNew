@@ -11,7 +11,12 @@ namespace TestBase.RestApi
 
         static Headers()
         {
-            GitHubHeaders = new Dictionary<string, string> {{"Accept", "application/vnd.github.v3+json"}, {"User-Agent", "HttpClientFactory-Sample"}};
+            GitHubHeaders = new Dictionary<string, string>
+            {
+                {"Accept", "application/vnd.github.v3+json"},
+                {"Accept-Language", Configuration.Language},
+                {"User-Agent", "HttpClientFactory-Sample"}
+            };
         }
     }
 }
