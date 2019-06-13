@@ -122,7 +122,7 @@ namespace TestBase.RestApi
         private static async Task<T> ReceivePocoAsync<T>(HttpResponseMessage response, bool withLog = true)
         {
             var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            var poco = JsonHelper.DeserializeJson<T>(responseText);
+            var poco = JsonHelper.DeserializeJsonString<T>(responseText);
 
             if (withLog)
             {

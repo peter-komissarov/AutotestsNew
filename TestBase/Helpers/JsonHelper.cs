@@ -10,12 +10,12 @@ namespace TestBase.Helpers
     public static class JsonHelper
     {
         /// <summary>
-        /// Преобразует http content в формате JSON в string content.
+        /// Преобразует объект в string content.
         /// </summary>
         /// <param name="content">Http content в виде анонимного объекта.</param>
         public static StringContent BuildStringContent(object content)
         {
-            var json = SerializeJson(content);
+            var json = SerializeObjectWithFormat(content);
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
@@ -24,16 +24,16 @@ namespace TestBase.Helpers
         /// </summary>
         /// <typeparam name="T">POCO класс.</typeparam>
         /// <param name="value">Строка в формате JSON.</param>
-        public static T DeserializeJson<T>(string value)
+        public static T DeserializeJsonString<T>(string value)
         {
             return JsonConvert.DeserializeObject<T>(value);
         }
 
         /// <summary>
-        /// Преобразует анонимный объект в строку в формате JSON.
+        /// Преобразует объект в строку в формате JSON.
         /// </summary>
         /// <param name="value">JSON object.</param>
-        public static string SerializeJson(object value)
+        public static string SerializeObjectWithFormat(object value)
         {
             return JsonConvert.SerializeObject(value, Formatting.Indented);
         }
