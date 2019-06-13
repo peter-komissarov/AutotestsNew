@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using TestBase.Repositories.Entities;
@@ -22,15 +23,12 @@ namespace TestBase.Repositories.Tables
         /// Асинхронно возвращает единственную запись из таблицы Invoices по параметру UserId, либо null.
         /// </summary>
         /// <param name="userId">Идентификатор пользователя.</param>
-        public async Task<Invoice> GetByUserIdAsync(Guid userId)
+        public async Task<Invoices> GetByUserIdAsync(Guid userId)
         {
-            const string sql = "SELECT TOP (1) * FROM [Invoices] WHERE UserId = @UserId";
-
             using (var connection = new SqlConnection(_connectionString))
             {
-                await connection.OpenAsync().ConfigureAwait(false);
-                var invoice = await connection.QuerySingleOrDefaultAsync<Invoice>(sql, new {UserId = userId}).ConfigureAwait(false);
-                return invoice;
+                var invoices = await connection.GetListAsync<Invoices>(new {UserId = userId}).ConfigureAwait(false);
+                return invoices.FirstOrDefault();
             }
         }
     }
