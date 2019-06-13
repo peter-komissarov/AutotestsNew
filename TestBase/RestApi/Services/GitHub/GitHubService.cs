@@ -5,17 +5,17 @@ using TestBase.RestApi.Services.GitHub.Responses;
 namespace TestBase.RestApi.Services.GitHub
 {
     /// <summary>
-    /// GitHub service implementation.
+    /// Реализация сервиса Github для авто-тестирования.
     /// </summary>
     public class GitHubService
     {
         /// <summary>
-        /// Returns GitHub branches list.
+        /// Возвращает список веток GitHub.
         /// </summary>
-        /// <param name="withLog">Log request and response or not?</param>
+        /// <param name="withLog">Требуется ли выводить в консоль http запрос и ответ.</param>
         public async Task<IEnumerable<BranchResponse>> GetBranchesAsync(bool withLog = true)
         {
-            using (var client = new RestApiClient(GitHubUrls.GitHubBranches))
+            using (var client = new RestApiClient(GitHubUri.GitHubBranches))
             {
                 var branches = await client
                     .WithHeaders(Headers.GitHubHeaders)

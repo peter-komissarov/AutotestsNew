@@ -5,7 +5,7 @@ using System.Threading;
 namespace TestBase.Helpers
 {
     /// <summary>
-    /// Provides help methods for random data generation.
+    /// Предоставляет вспомогательные методы для создания случайных тестовых данных.
     /// </summary>
     public static class RandomHelper
     {
@@ -25,7 +25,7 @@ namespace TestBase.Helpers
         }
 
         /// <summary>
-        /// Returns a random bool.
+        /// Возвращает случайное значение типа bool.
         /// </summary>
         public static bool NextBool()
         {
@@ -33,16 +33,20 @@ namespace TestBase.Helpers
         }
 
         /// <summary>
-        /// Returns a random Byte within a specified range.
+        /// Возвращает случайное значение типа Byte из заданной области допустимых значений.
         /// </summary>
+        /// <param name="min">Нижняя граница области допустимых значений.</param>
+        /// <param name="max">Верхняя граница области допустимых значений.</param>
         public static byte NextByte(byte min, byte max)
         {
             return (byte)GetThreadRandom().Next(min, max);
         }
 
         /// <summary>
-        /// Returns a random decimal within a specified range.
+        /// Возвращает случайное значение типа Decimal из заданной области допустимых значений.
         /// </summary>
+        /// <param name="min">Нижняя граница области допустимых значений.</param>
+        /// <param name="max">Верхняя граница области допустимых значений.</param>
         public static decimal NextDecimal(decimal min, decimal max)
         {
             if (min > max)
@@ -77,8 +81,10 @@ namespace TestBase.Helpers
         }
 
         /// <summary>
-        /// Returns a random double within a specified range.
+        /// Возвращает случайное значение типа Double из заданной области допустимых значений.
         /// </summary>
+        /// <param name="min">Нижняя граница области допустимых значений.</param>
+        /// <param name="max">Верхняя граница области допустимых значений.</param>
         public static double NextDouble(double min, double max)
         {
             if (max < min)
@@ -96,15 +102,17 @@ namespace TestBase.Helpers
         }
 
         /// <summary>
-        /// Returns a random float within a specified range.
+        /// Возвращает случайное значение типа Float из заданной области допустимых значений.
         /// </summary>
+        /// <param name="min">Нижняя граница области допустимых значений.</param>
+        /// <param name="max">Верхняя граница области допустимых значений.</param>
         public static float NextFloat(float min, float max)
         {
             return (float)NextDouble(min, max);
         }
 
         /// <summary>
-        /// Returns a random Guid.
+        /// Возвращает случайное значение типа Guid.
         /// </summary>
         public static Guid NextGuid()
         {
@@ -112,16 +120,20 @@ namespace TestBase.Helpers
         }
 
         /// <summary>
-        /// Returns a random int within a specified range.
+        /// Возвращает случайное значение типа Int32 из заданной области допустимых значений.
         /// </summary>
+        /// <param name="min">Нижняя граница области допустимых значений.</param>
+        /// <param name="max">Верхняя граница области допустимых значений.</param>
         public static int NextInt(int min, int max)
         {
             return GetThreadRandom().Next(min, max);
         }
 
         /// <summary>
-        /// Returns a random long within a specified range.
+        /// Возвращает случайное значение типа Long из заданной области допустимых значений.
         /// </summary>
+        /// <param name="min">Нижняя граница области допустимых значений.</param>
+        /// <param name="max">Верхняя граница области допустимых значений.</param>
         public static long NextLong(long min = 0L, long max = long.MaxValue)
         {
             if (min > max)
@@ -150,18 +162,19 @@ namespace TestBase.Helpers
         }
 
         /// <summary>
-        /// Returns a random short within a specified range.
+        /// Возвращает случайное значение типа Short из заданной области допустимых значений.
         /// </summary>
+        /// <param name="min">Нижняя граница области допустимых значений.</param>
+        /// <param name="max">Верхняя граница области допустимых значений.</param>
         public static short NextShort(short min, short max)
         {
             return (short)GetThreadRandom().Next(min, max);
         }
 
         /// <summary>
-        /// Generate a random string based on the characters from the input string.
+        /// Возвращает случайное значение типа string из заданной области допустимых значений.
         /// </summary>
-        /// <returns>A random string of the default length</returns>
-        /// <remarks>Uses <see cref="DefaultStringChars">DefaultStringChars</see> as the input character set </remarks>
+        /// <param name="length">Длинна строки.</param>
         public static string NextString(int length)
         {
             var sb = new StringBuilder(length);

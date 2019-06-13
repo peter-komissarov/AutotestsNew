@@ -3,10 +3,13 @@
 namespace TestBase.RestApi
 {
     /// <summary>
-    /// Http request headers.
+    /// Headers для http запросов.
     /// </summary>
     public static class Headers
     {
+        /// <summary>
+        /// Headers для http запросов к сервису GitHub.
+        /// </summary>
         public static Dictionary<string, string> GitHubHeaders;
 
         static Headers()

@@ -1,10 +1,13 @@
 ﻿namespace TestBase.RestApi.Services.GitHub
 {
     /// <summary>
-    /// GitHub urls.
+    /// Абсолютные Uri для сервиса GitHub.
     /// </summary>
-    public static class GitHubUrls
+    public static class GitHubUri
     {
+        /// <summary>
+        /// Uri для получения списка веток.
+        /// </summary>
         public const string GitHubBranches = Configuration.GitHubBaseUrl + "repos/aspnet/AspNetCore.Docs/branches";
     }
 }

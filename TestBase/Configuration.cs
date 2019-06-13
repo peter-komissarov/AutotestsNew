@@ -1,20 +1,20 @@
 ﻿namespace TestBase
 {
     /// <summary>
-    /// Constants per environment
+    /// Константы для окружений
     /// </summary>
     public static class Configuration
     {
 #if PRODUCTION
         #region Production environment constants
 
-        // Base URLs
+        // Базовые Uri
         public const string GitHubBaseUrl = "production_environment_base_url";
 
-        // Connections strings
+        // Строки подключения в базам данных
         public const string TestDatabase = "production_environment_connections_string";
                 
-        // Others
+        // Другое
         public const string DateTimeFormat = "production_environment_datetime_format";
         public const string Language = "test_environment_language";
 
@@ -23,13 +23,13 @@
 #elif SANDBOX
         #region Sandbox environment constants
 
-        // Base URLs
+        // Базовые Uri
         public const string GitHubBaseUrl = "sandbox_environment_base_url";
 
-        // Connections strings
+        // Строки подключения в базам данных
         public const string TestDatabase = "sandbox_environment_connections_string";
         
-        // Others
+        // Другое
         public const string DateTimeFormat = "sandbox_environment_datetime_format";
         public const string Language = "sandbox_environment_language";
 
@@ -39,18 +39,20 @@
 
         #region Test environment constants
 
-        // Base URLs
+        // Базовые Uri
         public const string GitHubBaseUrl = "https://api.github.com/";
 
-        // Connections strings
+        // Строки подключения в базам данных
         public const string TestDatabase = "data source=SCV-BD01.swiftcom.corp;"
             + "initial catalog=test_epayments;"
+            + "Integrated Security=false;"
             + "User ID=dev;"
             + "Password=uchMeIvank;"
             + "Max Pool Size=1024;"
-            + "Pooling=true;";
+            + "Pooling=true;"
+            + "Connection Timeout=15";
 
-        // Others
+        // Другое
         public const string DateTimeFormat = "dddd, dd MMMM yyyy HH:mm:ss.fff";
         public const string Language = "en-US";
 

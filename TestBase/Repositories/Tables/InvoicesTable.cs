@@ -7,21 +7,21 @@ using TestBase.Repositories.Entities;
 namespace TestBase.Repositories.Tables
 {
     /// <summary>
-    /// Table [Invoice].
+    /// Таблица Invoices.
     /// </summary>
-    public class InvoiceTable
+    public class InvoicesTable
     {
         private readonly string _connectionString;
 
-        public InvoiceTable(string connectionString = Configuration.TestDatabase)
+        public InvoicesTable(string connectionString = Configuration.TestDatabase)
         {
             _connectionString = connectionString;
         }
 
         /// <summary>
-        /// Returns record async from [Invoice]  table.
+        /// Асинхронно возвращает единственную запись из таблицы Invoices по параметру UserId, либо null.
         /// </summary>
-        /// <param name="userId">User identifier.</param>
+        /// <param name="userId">Идентификатор пользователя.</param>
         public async Task<Invoice> GetByUserIdAsync(Guid userId)
         {
             const string sql = "SELECT TOP (1) * FROM [Invoices] WHERE UserId = @UserId";

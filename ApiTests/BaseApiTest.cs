@@ -6,26 +6,25 @@ namespace ApiTests
     public abstract class BaseApiTest
     {
         /// <summary>
-        /// Executes once before the test run (Optional).
+        /// Запускается один раз перед выполнением всех тестов в прогоне.
         /// </summary>
-        /// <param name="context">TestContext class. This class should be fully abstract and not contain any members. The adapter will implement the members.</param>
-        /// <returns>A new <see cref="T:System.Threading.Tasks.Task" /> with the specified action.</returns>
+        /// <param name="context">TestContext класс. Этот класс должен быть полностью абстрактным и не содержать ни каких членов класса. MSTest адаптер реализует члены этого класса самостоятельно.</param>
         [AssemblyInitialize]
         public static void TestRunSetup(TestContext context)
         {
         }
 
         /// <summary>
-        /// Executes once for the test class (Optional).
+        /// Запускается один раз перед выполнением всех тестов в тестовом классе.
         /// </summary>
-        /// <param name="context">TestContext class. This class should be fully abstract and not contain any members. The adapter will implement the members.</param>
+        /// <param name="context">TestContext класс. Этот класс должен быть полностью абстрактным и не содержать ни каких членов класса. MSTest адаптер реализует члены этого класса самостоятельно.</param>
         [ClassInitialize]
         public static void TestClassSetup(TestContext context)
         {
         }
 
         /// <summary>
-        /// Executes before each test (Optional).
+        /// Запускается перед запуском каждого теста.
         /// </summary>
         [TestInitialize]
         public void TestMethodSetup()
@@ -33,7 +32,7 @@ namespace ApiTests
         }
 
         /// <summary>
-        /// Executes after each test (Optional).
+        /// Запускается после каждого теста.
         /// </summary>
         [TestCleanup]
         public void TestMethodCleanup()
@@ -41,7 +40,7 @@ namespace ApiTests
         }
 
         /// <summary>
-        /// Executes once after all tests in this class are executed (Optional).
+        /// Запускается один раз после выполнения всех тестов в тестовом классе.
         /// </summary>
         [ClassCleanup]
         public static void TestClassCleanup()
@@ -49,7 +48,7 @@ namespace ApiTests
         }
 
         /// <summary>
-        /// Executes once after the test run (Optional).
+        /// Запускается один раз после выполнения всех тестов в прогоне.
         /// </summary>
         [AssemblyCleanup]
         public static void TestRunCleanup()
