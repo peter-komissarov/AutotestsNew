@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestBase.Data.PocoClasses;
+using TestBase.DataBase.Tables;
 using TestBase.Helpers;
-using TestBase.Repositories.Tables;
 using TestBase.RestApi.Services.GitHub;
 using TestBase.RestApi.Services.GitHub.Responses;
 
@@ -18,9 +18,11 @@ namespace ApiTests.GithubTests
     [TestClass]
     public class SmokeTests : BaseApiTest
     {
-            public static IEnumerable<BranchResponse> GetData()
+        private static IEnumerable<object[]> GetData()
+        {
+            yield return new object[]
             {
-                yield return new BranchResponse
+                new BranchResponse
                 {
                     Name = RandomHelper.NextString(10),
                     Commit = new Commit
@@ -29,8 +31,12 @@ namespace ApiTests.GithubTests
                         Url = new Uri(GitHubUri.GitHubBranches)
                     },
                     Protected = true
-                };
-                yield return new BranchResponse
+                }
+            };
+
+            yield return new object[]
+            {
+                new BranchResponse
                 {
                     Name = "2/ODATA/security/ra",
                     Commit = new Commit
@@ -39,8 +45,9 @@ namespace ApiTests.GithubTests
                         Url = new Uri("https://api.github.com/repos/aspnet/AspNetCore.Docs/commits/b6473109fb38d38a20415ee0a27e74b4ac57bc06")
                     },
                     Protected = false
-                };
-            }
+                }
+            };
+        }
 
         [Description("Проверяет, что количество веток GitHub больше или равно 30.")]
         [TestMethod]
@@ -60,13 +67,14 @@ namespace ApiTests.GithubTests
         [Description("Проверяет, что Ответ")]
         [DynamicData(nameof(GetData), DynamicDataSourceType.Method)]
         [TestMethod]
-        public async Task Check_BranchesCollection_Contains_ExpectedBranch(BranchResponse expectedBranch)
+        public async Task Check_BranchesCollection_Contains_ExpectedBranch(object expectedBranch)
         {
             var branches = await new GitHubService()
                 .GetBranchesAsync()
                 .ConfigureAwait(false);
-            LogHelper.WriteValue("Ожидаемая ветка", expectedBranch);
+
             LogHelper.WriteValue("Фактическая коллекция веток", branches);
+            LogHelper.WriteValue("Ожидаемая ветка", expectedBranch);
             CollectionAssert.Contains((ICollection)branches, expectedBranch, "Ожидаемая ветка не входит в коллекцию фактических веток");
         }
     }

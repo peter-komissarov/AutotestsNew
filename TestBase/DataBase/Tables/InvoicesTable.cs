@@ -3,9 +3,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using TestBase.Repositories.Entities;
+using TestBase.DataBase.Entities;
 
-namespace TestBase.Repositories.Tables
+namespace TestBase.DataBase.Tables
 {
     /// <summary>
     /// Таблица Invoices.
