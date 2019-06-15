@@ -14,7 +14,7 @@ namespace TestBase.DataBase.Tables
     {
         private readonly string _connectionString;
 
-        public InvoicesTable(string connectionString = Configuration.TestDatabase)
+        public InvoicesTable(string connectionString = Configuration.Epayments)
         {
             _connectionString = connectionString;
         }

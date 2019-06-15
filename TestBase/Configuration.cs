@@ -9,10 +9,10 @@
         #region Production environment constants
 
         // Базовые Uri
-        public const string GitHubBaseUrl = "production_environment_base_url";
+        public const string GitHubBase = "production_environment_base_url";
 
         // Строки подключения в базам данных
-        public const string TestDatabase = "production_environment_connections_string";
+        public const string Epayments = "production_environment_connections_string";
                 
         // Другое
         public const string DateTimeFormat = "production_environment_datetime_format";
@@ -24,10 +24,10 @@
         #region Sandbox environment constants
 
         // Базовые Uri
-        public const string GitHubBaseUrl = "sandbox_environment_base_url";
+        public const string GitHubBase = "sandbox_environment_base_url";
 
         // Строки подключения в базам данных
-        public const string TestDatabase = "sandbox_environment_connections_string";
+        public const string Epayments = "sandbox_environment_connections_string";
         
         // Другое
         public const string DateTimeFormat = "sandbox_environment_datetime_format";
@@ -40,10 +40,10 @@
         #region Test environment constants
 
         // Базовые Uri
-        public const string GitHubBaseUrl = "https://api.github.com/";
+        public const string GitHubBase = "https://api.github.com/";
 
         // Строки подключения в базам данных
-        public const string TestDatabase = "data source=SCV-BD01.swiftcom.corp;"
+        public const string Epayments = "data source=SCV-BD01.swiftcom.corp;"
             + "initial catalog=test_epayments;"
             + "Integrated Security=false;"
             + "User ID=dev;"
