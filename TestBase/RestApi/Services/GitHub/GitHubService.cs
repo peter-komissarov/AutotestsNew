@@ -15,10 +15,10 @@ namespace TestBase.RestApi.Services.GitHub
         /// <param name="withLog">Требуется ли выводить в консоль http запрос и ответ.</param>
         public async Task<IEnumerable<BranchResponse>> GetBranchesAsync(bool withLog = true)
         {
-            using (var client = new RestApiClient(GitHubUri.GitHubBranches))
+            using (var client = new Client(GitHubUri.Branches))
             {
                 var branches = await client
-                    .WithHeaders(Headers.GitHubHeaders)
+                    .WithHeaders(Headers.GitHub)
                     .GetAsync<IEnumerable<BranchResponse>>(withLog)
                     .ConfigureAwait(false);
                 return branches;

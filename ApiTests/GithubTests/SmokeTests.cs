@@ -73,13 +73,13 @@ namespace ApiTests.GithubTests
                 .GetBranchesAsync()
                 .ConfigureAwait(false);
 
-            var branchesCollection = branches.Select(JsonHelper.SerializeObjectWithFormat).ToArray();
+            var branchesCollection = branches.Select(JsonHelper.ObjectToString).ToArray();
             LogHelper.WriteValue("Фактическая коллекция веток", branches);
             LogHelper.WriteValue("Ожидаемая ветка", expectedBranch);
 
             CollectionAssert.Contains(
                 branchesCollection,
-                JsonHelper.SerializeObjectWithFormat(expectedBranch),
+                JsonHelper.ObjectToString(expectedBranch),
                 "Ожидаемая ветка не входит в коллекцию фактических веток");
         }
     }

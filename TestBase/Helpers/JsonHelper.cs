@@ -13,27 +13,27 @@ namespace TestBase.Helpers
         /// Преобразует объект в string content.
         /// </summary>
         /// <param name="content">Http content в виде анонимного объекта.</param>
-        public static StringContent BuildStringContent(object content)
+        public static StringContent ObjectToStringContent(object content)
         {
-            var json = SerializeObjectWithFormat(content);
+            var json = ObjectToString(content);
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
         /// <summary>
-        /// Преобразует строку в формате JSON в POCO класс.
+        /// Преобразует строку в POCO класс.
         /// </summary>
         /// <typeparam name="T">POCO класс.</typeparam>
         /// <param name="value">Строка в формате JSON.</param>
-        public static T DeserializeJsonString<T>(string value)
+        public static T StringToPoco<T>(string value)
         {
             return JsonConvert.DeserializeObject<T>(value);
         }
 
         /// <summary>
-        /// Преобразует объект в строку в формате JSON.
+        /// Преобразует объект в строку.
         /// </summary>
         /// <param name="value">JSON object.</param>
-        public static string SerializeObjectWithFormat(object value)
+        public static string ObjectToString(object value)
         {
             return JsonConvert.SerializeObject(value, Formatting.Indented);
         }

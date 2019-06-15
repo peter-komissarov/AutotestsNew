@@ -19,7 +19,7 @@ namespace TestBase.Helpers
         {
             WriteText($"{description}:"
                 + $"{Environment.NewLine}"
-                + $"{JsonHelper.SerializeObjectWithFormat(value)}");
+                + $"{JsonHelper.ObjectToString(value)}");
         }
 
         /// <summary>
@@ -39,14 +39,14 @@ namespace TestBase.Helpers
 
                 foreach (var header in request.Headers)
                 {
-                    message.Append($"{Environment.NewLine}{JsonHelper.SerializeObjectWithFormat(header)}");
+                    message.Append($"{Environment.NewLine}{JsonHelper.ObjectToString(header)}");
                 }
             }
 
             if (request.Content != null)
             {
                 message.Append($"{Environment.NewLine}Content:");
-                message.Append($"{Environment.NewLine}{JsonHelper.SerializeObjectWithFormat(request.Content)}");
+                message.Append($"{Environment.NewLine}{JsonHelper.ObjectToString(request.Content)}");
             }
 
             WriteText(message.ToString());
@@ -60,7 +60,7 @@ namespace TestBase.Helpers
         {
             WriteText("Response:"
                 + $"{Environment.NewLine}"
-                + $"{JsonHelper.SerializeObjectWithFormat(poco)}");
+                + $"{JsonHelper.ObjectToString(poco)}");
         }
 
         /// <summary>

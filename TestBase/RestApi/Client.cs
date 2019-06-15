@@ -11,7 +11,7 @@ namespace TestBase.RestApi
     /// <summary>
     /// Реализация REST API клиента.
     /// </summary>
-    public class RestApiClient : IDisposable
+    public class Client : IDisposable
     {
         private static readonly HttpClient _client;
         private CancellationToken _cancellationToken;
@@ -20,7 +20,7 @@ namespace TestBase.RestApi
         private HttpRequestMessage _request;
         private string _uri;
 
-        static RestApiClient()
+        static Client()
         {
             _client = new HttpClient
             {
@@ -28,7 +28,7 @@ namespace TestBase.RestApi
             };
         }
 
-        public RestApiClient(string uri)
+        public Client(string uri)
         {
             _cancellationToken = new CancellationToken();
             _request = new HttpRequestMessage();
@@ -122,7 +122,7 @@ namespace TestBase.RestApi
         private static async Task<T> ReceivePocoAsync<T>(HttpResponseMessage response, bool withLog = true)
         {
             var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            var poco = JsonHelper.DeserializeJsonString<T>(responseText);
+            var poco = JsonHelper.StringToPoco<T>(responseText);
 
             if (withLog)
             {
@@ -137,7 +137,7 @@ namespace TestBase.RestApi
         /// </summary>
         /// <param name="login">Логин.</param>
         /// <param name="password">Пароль.</param>
-        public RestApiClient WithBasicAuth(string login, string password)
+        public Client WithBasicAuth(string login, string password)
         {
             var base64String = Convert.ToBase64String(Encoding.UTF8.GetBytes(login + ":" + password));
             WithHeaders(new Dictionary<string, string> {{"Authorization", "Basic " + base64String}});
@@ -148,7 +148,7 @@ namespace TestBase.RestApi
         /// Добавляет к http запросу хедер для авторизации пользователя по bearer токену.
         /// </summary>
         /// <param name="token">Bearer токен.</param>
-        public RestApiClient WithBearerToken(string token)
+        public Client WithBearerToken(string token)
         {
             WithHeaders(new Dictionary<string, string> {{"Authorization", "Bearer " + token}});
             return this;
@@ -158,9 +158,9 @@ namespace TestBase.RestApi
         /// Добавляет контент к post и put http запросам.
         /// </summary>
         /// <param name="content">Контент.</param>
-        public RestApiClient WithContent(object content)
+        public Client WithContent(object content)
         {
-            _request.Content = JsonHelper.BuildStringContent(content);
+            _request.Content = JsonHelper.ObjectToStringContent(content);
             return this;
         }
 
@@ -169,7 +169,7 @@ namespace TestBase.RestApi
         /// </summary>
         /// <param name="key">Имя хедера.</param>
         /// <param name="value">Значение хедера.</param>
-        public RestApiClient WithHeader(string key, string value)
+        public Client WithHeader(string key, string value)
         {
             _request.Headers.Add(key, value);
             return this;
@@ -179,7 +179,7 @@ namespace TestBase.RestApi
         /// Добавляет коллекцию хедеров к http запросу.
         /// </summary>
         /// <param name="headers">Словарь из сущностей типа 'имя хедера, значение хедера'.</param>
-        public RestApiClient WithHeaders(Dictionary<string, string> headers)
+        public Client WithHeaders(Dictionary<string, string> headers)
         {
             foreach (var header in headers)
             {
@@ -193,9 +193,9 @@ namespace TestBase.RestApi
         /// Добавляет параметры к Uri.
         /// </summary>
         /// <param name="parameters">Параметры.</param>
-        public RestApiClient WithParams(object parameters = null)
+        public Client WithParams(object parameters = null)
         {
-            _uri = StringHelper.BuildStringUri(_uri, parameters);
+            _uri = StringHelper.GetAbsoluteUri(_uri, parameters);
             return this;
         }
 
@@ -203,7 +203,7 @@ namespace TestBase.RestApi
         /// Добавляет время ожидания завершения http запроса.
         /// </summary>
         /// <param name="timeout">Время ожидания завершения асинхронной задачи.</param>
-        public RestApiClient WithTimeout(TimeSpan timeout)
+        public Client WithTimeout(TimeSpan timeout)
         {
             var cancellationTokenSource = new CancellationTokenSource();
 

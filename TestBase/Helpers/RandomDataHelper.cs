@@ -7,7 +7,7 @@ namespace TestBase.Helpers
     /// <summary>
     /// Предоставляет вспомогательные методы для создания случайных тестовых данных.
     /// </summary>
-    public static class RandomHelper
+    public static class RandomDataHelper
     {
         private const string DefaultStringChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789_";
         private static int _seed = Environment.TickCount;
