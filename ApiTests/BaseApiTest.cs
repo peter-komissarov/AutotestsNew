@@ -12,7 +12,7 @@ namespace ApiTests
         /// Выполняется один раз перед запуском всех тестов в прогоне.
         /// </summary>
         [OneTimeSetUp]
-        public static void OneTimeSetUp()
+        public void OneTimeSetUp()
         {
         }
 
@@ -36,7 +36,7 @@ namespace ApiTests
         /// Запускается один раз после выполнения всех тестов в прогоне.
         /// </summary>
         [OneTimeTearDown]
-        public static void OneTimeTearDown()
+        public void OneTimeTearDown()
         {
         }
     }
