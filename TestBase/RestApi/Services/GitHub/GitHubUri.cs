@@ -1,4 +1,6 @@
-﻿namespace TestBase.RestApi.Services.GitHub
+﻿using TestBase.Helpers;
+
+namespace TestBase.RestApi.Services.GitHub
 {
     /// <summary>
     /// Uri для сервиса GitHub.
@@ -8,6 +10,6 @@
         /// <summary>
         /// Uri для получения списка веток.
         /// </summary>
-        public const string Branches = Configuration.GitHubBase + "repos/aspnet/AspNetCore.Docs/branches";
+        public static readonly string Branches = ConfigurationHelper.TestConfig["HostNames:GitHub"] + "repos/aspnet/AspNetCore.Docs/branches";
     }
 }

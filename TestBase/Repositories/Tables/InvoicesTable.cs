@@ -15,9 +15,9 @@ namespace TestBase.Repositories.Tables
     {
         private readonly string _connectionString;
 
-        public InvoicesTable(string connectionString = Configuration.Epayments)
+        public InvoicesTable(string connectionString = null)
         {
-            _connectionString = connectionString;
+            _connectionString = connectionString ?? ConfigurationHelper.TestConfig["ConnectionStrings:Epayments"];
         }
 
         /// <summary>

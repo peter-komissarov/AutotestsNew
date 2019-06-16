@@ -69,7 +69,7 @@ namespace TestBase.Helpers
         /// <param name="messageText">Текст сообщения.</param>
         public static void WriteText(string messageText)
         {
-            Console.WriteLine($"{DateTime.UtcNow.ToString(Configuration.DateTimeFormat, new CultureInfo(Configuration.Language))}"
+            Console.WriteLine($"{DateTime.UtcNow.ToString(ConfigurationHelper.TestConfig["Culture&Format:DateTimeFormat"], new CultureInfo(ConfigurationHelper.TestConfig["Culture&Format:Language"]))}"
                 + $"{Environment.NewLine}"
                 + $"{messageText}{Environment.NewLine}");
         }

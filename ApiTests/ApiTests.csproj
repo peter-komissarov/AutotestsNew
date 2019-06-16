@@ -50,4 +50,33 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Configuration.json">
+      <TransformOnBuild>true</TransformOnBuild>
+      <Link></Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Configuration.Production.json">
+      <IsTransformFile>true</IsTransformFile>
+      <DependentUpon>Configuration.json</DependentUpon>
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Configuration.Sandbox.json">
+      <IsTransformFile>true</IsTransformFile>
+      <DependentUpon>Configuration.json</DependentUpon>
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Configuration.Test.json">
+      <IsTransformFile>true</IsTransformFile>
+      <DependentUpon>Configuration.json</DependentUpon>
+      <TransformOnBuild>false</TransformOnBuild>
+      <Link></Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

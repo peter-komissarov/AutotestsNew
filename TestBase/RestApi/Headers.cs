@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TestBase.Helpers;
 
 namespace TestBase.RestApi
 {
@@ -17,7 +18,7 @@ namespace TestBase.RestApi
             GitHub = new Dictionary<string, string>
             {
                 {"Accept", "application/vnd.github.v3+json"},
-                {"Accept-Language", Configuration.Language},
+                {"Accept-Language", ConfigurationHelper.TestConfig["Culture&Format:Language"]},
                 {"User-Agent", "HttpClientFactory-Sample"}
             };
         }
