@@ -11,7 +11,7 @@ namespace TestBase.RestApi
     /// <summary>
     /// Реализация REST API клиента.
     /// </summary>
-    public class Client : IDisposable
+    public sealed class Client : IDisposable
     {
         private static readonly HttpClient _client;
         private CancellationToken _cancellationToken;
@@ -51,8 +51,13 @@ namespace TestBase.RestApi
                 LogHelper.WriteRequest(_request);
             }
 
-            var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
-            var poco = await ReceivePocoAsync<T>(response, withLog).ConfigureAwait(false);
+            var response = await _client
+                .SendAsync(_request, _cancellationToken)
+                .ConfigureAwait(false);
+
+            var poco = await ReceivePocoAsync<T>(response, withLog)
+                .ConfigureAwait(false);
+
             return poco;
         }
 
@@ -72,8 +77,13 @@ namespace TestBase.RestApi
                 LogHelper.WriteRequest(_request);
             }
 
-            var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
-            var poco = await ReceivePocoAsync<T>(response, withLog).ConfigureAwait(false);
+            var response = await _client
+                .SendAsync(_request, _cancellationToken)
+                .ConfigureAwait(false);
+
+            var poco = await ReceivePocoAsync<T>(response, withLog)
+                .ConfigureAwait(false);
+
             return poco;
         }
 
@@ -93,8 +103,13 @@ namespace TestBase.RestApi
                 LogHelper.WriteRequest(_request);
             }
 
-            var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
-            var poco = await ReceivePocoAsync<T>(response, withLog).ConfigureAwait(false);
+            var response = await _client
+                .SendAsync(_request, _cancellationToken)
+                .ConfigureAwait(false);
+
+            var poco = await ReceivePocoAsync<T>(response, withLog)
+                .ConfigureAwait(false);
+
             return poco;
         }
 
@@ -114,14 +129,23 @@ namespace TestBase.RestApi
                 LogHelper.WriteRequest(_request);
             }
 
-            var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
-            var poco = await ReceivePocoAsync<T>(response, withLog).ConfigureAwait(false);
+            var response = await _client
+                .SendAsync(_request, _cancellationToken)
+                .ConfigureAwait(false);
+
+            var poco = await ReceivePocoAsync<T>(response, withLog)
+                .ConfigureAwait(false);
+
             return poco;
         }
 
         private static async Task<T> ReceivePocoAsync<T>(HttpResponseMessage response, bool withLog = true)
         {
-            var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var responseText = await response
+                .Content
+                .ReadAsStringAsync()
+                .ConfigureAwait(false);
+
             var poco = JsonHelper.StringToPoco<T>(responseText);
 
             if (withLog)
@@ -141,6 +165,7 @@ namespace TestBase.RestApi
         {
             var base64String = Convert.ToBase64String(Encoding.UTF8.GetBytes(login + ":" + password));
             WithHeaders(new Dictionary<string, string> {{"Authorization", "Basic " + base64String}});
+
             return this;
         }
 
@@ -151,6 +176,7 @@ namespace TestBase.RestApi
         public Client WithBearerToken(string token)
         {
             WithHeaders(new Dictionary<string, string> {{"Authorization", "Bearer " + token}});
+
             return this;
         }
 
@@ -161,6 +187,7 @@ namespace TestBase.RestApi
         public Client WithContent(object content)
         {
             _request.Content = JsonHelper.ObjectToStringContent(content);
+
             return this;
         }
 
@@ -172,6 +199,7 @@ namespace TestBase.RestApi
         public Client WithHeader(string key, string value)
         {
             _request.Headers.Add(key, value);
+
             return this;
         }
 
@@ -206,13 +234,13 @@ namespace TestBase.RestApi
         public Client WithTimeout(TimeSpan timeout)
         {
             var cancellationTokenSource = new CancellationTokenSource();
-
             cancellationTokenSource.CancelAfter(timeout);
             _cancellationToken = cancellationTokenSource.Token;
+
             return this;
         }
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (_disposed)
             {

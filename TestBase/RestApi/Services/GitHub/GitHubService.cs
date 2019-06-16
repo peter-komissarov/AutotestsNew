@@ -21,6 +21,7 @@ namespace TestBase.RestApi.Services.GitHub
                     .WithHeaders(Headers.GitHub)
                     .GetAsync<IEnumerable<BranchResponse>>(withLog)
                     .ConfigureAwait(false);
+
                 return branches;
             }
         }

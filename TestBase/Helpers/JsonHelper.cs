@@ -16,6 +16,7 @@ namespace TestBase.Helpers
         public static StringContent ObjectToStringContent(object content)
         {
             var json = ObjectToString(content);
+
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 

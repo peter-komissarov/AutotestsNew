@@ -22,7 +22,8 @@ namespace TestBase.Helpers
                 $"{description}:"
                 + $"{Environment.NewLine}"
                 + $"{JsonHelper.ObjectToString(value)}");
-            WriteText(stringBuilder);
+
+            WriteText(stringBuilder.ToString());
         }
 
         /// <summary>
@@ -35,7 +36,7 @@ namespace TestBase.Helpers
 
             if (request.Headers != null)
             {
-                stringBuilder.Append($"{Environment.NewLine}Headers:");
+                stringBuilder.Append($"{Environment.NewLine}With headers:");
 
                 foreach (var header in request.Headers)
                 {
@@ -47,11 +48,11 @@ namespace TestBase.Helpers
             {
                 stringBuilder.Append(
                     $"{Environment.NewLine}"
-                    + $"Content:{Environment.NewLine}"
+                    + $"With content:{Environment.NewLine}"
                     + $"{JsonHelper.ObjectToString(request.Content)}");
             }
 
-            WriteText(stringBuilder);
+            WriteText(stringBuilder.ToString());
         }
 
         /// <summary>
@@ -75,26 +76,27 @@ namespace TestBase.Helpers
 
                 if (stringBuilder.Length > 0)
                 {
-                    stringBuilder.Insert(0, $"Headers:{Environment.NewLine}");
+                    stringBuilder.Insert(0, $"Response headers:{Environment.NewLine}");
                 }
             }
 
-            stringBuilder.Append($"Response:{Environment.NewLine}{JsonHelper.ObjectToString(poco)}");
-            WriteText(stringBuilder);
+            stringBuilder.Append($"Response content:{Environment.NewLine}{JsonHelper.ObjectToString(poco)}");
+            WriteText(stringBuilder.ToString());
         }
 
         /// <summary>
         /// Пишет в консоль сообщение.
         /// </summary>
-        /// <param name="stringBuilder">Текст сообщения.</param>
-        private static void WriteText(StringBuilder stringBuilder)
+        /// <param name="message">Текст сообщения.</param>
+        public static void WriteText(string message)
         {
             var config = ConfigHelper.Config;
 
             Console.WriteLine(
                 $"{DateTime.UtcNow.ToString(config["Culture&Format:DateTimeFormat"], new CultureInfo(config["Culture&Format:Language"]))}"
                 + $"{Environment.NewLine}"
-                + $"{stringBuilder}{Environment.NewLine}");
+                + $"{message}{Environment.NewLine}"
+                + $"{Environment.NewLine}");
         }
     }
 }

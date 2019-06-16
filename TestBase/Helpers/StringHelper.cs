@@ -27,6 +27,7 @@ namespace TestBase.Helpers
             }
 
             uriBuilder.Query = stringBuilder.Remove(stringBuilder.Length - 1, 1).ToString();
+
             return uriBuilder.ToString();
         }
     }

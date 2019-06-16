@@ -52,7 +52,10 @@ namespace ApiTests.GithubTests
                 .GetBranchesAsync()
                 .ConfigureAwait(false);
 
-            var branchesCollection = branches.Select(JsonHelper.ObjectToString).ToArray();
+            var branchesCollection = branches
+                .Select(JsonHelper.ObjectToString)
+                .ToArray();
+
             CollectionAssert.Contains(
                 branchesCollection,
                 JsonHelper.ObjectToString(expectedBranch),
@@ -63,17 +66,17 @@ namespace ApiTests.GithubTests
         [Test]
         public async Task Check_BranchesCount_Positive()
         {
+            // тестирование запроса к базе данных
             var invoice = await new InvoicesTable()
                 .GetByUserIdAsync(new Guid("01C4D55C-B94D-473B-B4FE-B84CC6F77DC3"))
                 .ConfigureAwait(false);
 
-            var branchesCount = (await new GitHubService()
-                    .GetBranchesAsync()
-                    .ConfigureAwait(false))
-                .Count();
+            var branches = await new GitHubService()
+                .GetBranchesAsync()
+                .ConfigureAwait(false);
 
             Assert.AreEqual(870, invoice.InvoiceId, $"Actual InvoiceId is {invoice.InvoiceId}, but 870 expected.");
-            Assert.AreEqual(30, branchesCount, $"Actual GitHub brunches count is {branchesCount}, but 30 expected.");
+            Assert.AreEqual(30, branches.Count(), $"Actual GitHub brunches count is {branches.Count()}, but 30 expected.");
         }
     }
 }
