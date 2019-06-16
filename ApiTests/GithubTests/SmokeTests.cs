@@ -43,6 +43,22 @@ namespace ApiTests.GithubTests
             };
         }
 
+        [Description("Проверяет, что в коллекции веток GitHub присутствует ожидаемая ветка.")]
+        [Test]
+        [TestCaseSource(nameof(GetData))]
+        public async Task Check_BranchesCollection_Positive(BranchResponse expectedBranch)
+        {
+            var branches = await new GitHubService()
+                .GetBranchesAsync()
+                .ConfigureAwait(false);
+
+            var branchesCollection = branches.Select(JsonHelper.ObjectToString).ToArray();
+            CollectionAssert.Contains(
+                branchesCollection,
+                JsonHelper.ObjectToString(expectedBranch),
+                "Actual GitHub brunches collection does not contain an expected brunch.");
+        }
+
         [Description("Проверяет, что количество веток GitHub равняется 30.")]
         [Test]
         public async Task Check_BranchesCount_Positive()
@@ -58,22 +74,6 @@ namespace ApiTests.GithubTests
 
             Assert.AreEqual(870, invoice.InvoiceId, $"Actual InvoiceId is {invoice.InvoiceId}, but 870 expected.");
             Assert.AreEqual(30, branchesCount, $"Actual GitHub brunches count is {branchesCount}, but 30 expected.");
-        }
-
-        [Description("Проверяет, что в коллекции веток GitHub присутствует ожидаемая ветка.")]
-        [Test]
-        [TestCaseSource(nameof(GetData))]
-        public async Task Check_BranchesCollection_Positive(BranchResponse expectedBranch)
-        {
-            var branches = await new GitHubService()
-                .GetBranchesAsync()
-                .ConfigureAwait(false);
-
-            var branchesCollection = branches.Select(JsonHelper.ObjectToString).ToArray();
-            CollectionAssert.Contains(
-                branchesCollection,
-                JsonHelper.ObjectToString(expectedBranch),
-                "Actual GitHub brunches collection does not contain an expected brunch.");
         }
     }
 }

@@ -14,7 +14,7 @@ namespace TestBase.RestApi.Services.GitHub
 
         static GitHubUri()
         {
-            Branches = ConfigurationHelper.TestConfig["HostNames:GitHub"] + "repos/aspnet/AspNetCore.Docs/branches";
+            Branches = ConfigHelper.Config["HostNames:GitHub"] + "repos/aspnet/AspNetCore.Docs/branches";
         }
     }
 }

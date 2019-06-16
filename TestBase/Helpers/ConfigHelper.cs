@@ -3,13 +3,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace TestBase.Helpers
 {
-    public static class ConfigurationHelper
+    public static class ConfigHelper
     {
-        public static readonly IConfigurationRoot TestConfig;
+        public static readonly IConfigurationRoot Config;
 
-        static ConfigurationHelper()
+        static ConfigHelper()
         {
-            TestConfig = new ConfigurationBuilder()
+            Config = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile(
                     "Configuration.json",

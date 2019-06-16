@@ -18,7 +18,7 @@ namespace TestBase.RestApi
             GitHub = new Dictionary<string, string>
             {
                 {"Accept", "application/vnd.github.v3+json"},
-                {"Accept-Language", ConfigurationHelper.TestConfig["Culture&Format:Language"]},
+                {"Accept-Language", ConfigHelper.Config["Culture&Format:Language"]},
                 {"User-Agent", "HttpClientFactory-Sample"}
             };
         }

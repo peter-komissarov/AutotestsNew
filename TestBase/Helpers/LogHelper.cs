@@ -45,7 +45,8 @@ namespace TestBase.Helpers
 
             if (request.Content != null)
             {
-                stringBuilder.Append($"{Environment.NewLine}"
+                stringBuilder.Append(
+                    $"{Environment.NewLine}"
                     + $"Content:{Environment.NewLine}"
                     + $"{JsonHelper.ObjectToString(request.Content)}");
             }
@@ -88,7 +89,10 @@ namespace TestBase.Helpers
         /// <param name="stringBuilder">Текст сообщения.</param>
         private static void WriteText(StringBuilder stringBuilder)
         {
-            Console.WriteLine($"{DateTime.UtcNow.ToString(ConfigurationHelper.TestConfig["Culture&Format:DateTimeFormat"], new CultureInfo(ConfigurationHelper.TestConfig["Culture&Format:Language"]))}"
+            var config = ConfigHelper.Config;
+
+            Console.WriteLine(
+                $"{DateTime.UtcNow.ToString(config["Culture&Format:DateTimeFormat"], new CultureInfo(config["Culture&Format:Language"]))}"
                 + $"{Environment.NewLine}"
                 + $"{stringBuilder}{Environment.NewLine}");
         }

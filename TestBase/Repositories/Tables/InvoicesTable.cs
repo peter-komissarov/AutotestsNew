@@ -19,11 +19,11 @@ namespace TestBase.Repositories.Tables
         /// <param name="userId">Идентификатор пользователя.</param>
         public async Task<Invoices> GetByUserIdAsync(Guid userId)
         {
-            using (var connection = new SqlConnection(ConfigurationHelper.TestConfig["ConnectionStrings:Epayments"]))
+            using (var connection = new SqlConnection(ConfigHelper.Config["ConnectionStrings:Epayments"]))
             {
                 var invoice = (await connection
-                    .GetListAsync<Invoices>(new {UserId = userId})
-                    .ConfigureAwait(false))
+                        .GetListAsync<Invoices>(new {UserId = userId})
+                        .ConfigureAwait(false))
                     .FirstOrDefault();
 
                 LogHelper.WriteValue($"Founded Invoice by UserId = '{userId}'", invoice);
