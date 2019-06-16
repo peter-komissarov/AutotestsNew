@@ -6,11 +6,17 @@ namespace ApiTests
     public abstract class BaseApiTest
     {
         /// <summary>
+        ///Gets or sets the test context which provides
+        ///information about and functionality for the current test run.
+        ///</summary>
+        public TestContext TestContext { get; set; }
+
+        /// <summary>
         /// Запускается один раз перед выполнением всех тестов в прогоне.
         /// </summary>
         /// <param name="context">TestContext класс. Этот класс должен быть полностью абстрактным и не содержать ни каких членов класса. MSTest адаптер реализует члены этого класса самостоятельно.</param>
         [AssemblyInitialize]
-        public static void TestRunSetup(TestContext context)
+        public static void AssemblyInitialize(TestContext context)
         {
         }
 
@@ -19,7 +25,7 @@ namespace ApiTests
         /// </summary>
         /// <param name="context">TestContext класс. Этот класс должен быть полностью абстрактным и не содержать ни каких членов класса. MSTest адаптер реализует члены этого класса самостоятельно.</param>
         [ClassInitialize]
-        public static void TestClassSetup(TestContext context)
+        public static void ClassInitialize(TestContext context)
         {
         }
 
@@ -27,7 +33,7 @@ namespace ApiTests
         /// Запускается перед запуском каждого теста.
         /// </summary>
         [TestInitialize]
-        public void TestMethodSetup()
+        public void TestInitialize()
         {
         }
 
@@ -35,7 +41,7 @@ namespace ApiTests
         /// Запускается после каждого теста.
         /// </summary>
         [TestCleanup]
-        public void TestMethodCleanup()
+        public void TestCleanup()
         {
         }
 
@@ -43,7 +49,7 @@ namespace ApiTests
         /// Запускается один раз после выполнения всех тестов в тестовом классе.
         /// </summary>
         [ClassCleanup]
-        public static void TestClassCleanup()
+        public static void ClassCleanup()
         {
         }
 
@@ -51,7 +57,7 @@ namespace ApiTests
         /// Запускается один раз после выполнения всех тестов в прогоне.
         /// </summary>
         [AssemblyCleanup]
-        public static void TestRunCleanup()
+        public static void AssemblyCleanup()
         {
         }
     }

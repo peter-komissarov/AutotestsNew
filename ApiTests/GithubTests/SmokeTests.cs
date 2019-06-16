@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestBase.Data.PocoClasses;
-using TestBase.DataBase.Tables;
+using TestBase.Data.Poco;
 using TestBase.Helpers;
+using TestBase.Repositories.Tables;
 using TestBase.RestApi.Services.GitHub;
 using TestBase.RestApi.Services.GitHub.Responses;
 
@@ -48,7 +48,7 @@ namespace ApiTests.GithubTests
             };
         }
 
-        [Description("Проверяет, что количество веток GitHub больше или равно 30.")]
+        [Description("Проверяет, что количество веток GitHub равняется 30.")]
         [TestMethod]
         public async Task Check_BranchesCount_Positive()
         {
@@ -56,15 +56,21 @@ namespace ApiTests.GithubTests
                 .GetByUserIdAsync(new Guid("01C4D55C-B94D-473B-B4FE-B84CC6F77DC3"))
                 .ConfigureAwait(false);
 
-            var branches = await new GitHubService()
-                .GetBranchesAsync()
-                .ConfigureAwait(false);
+            var branchesCount = (await new GitHubService()
+                    .GetBranchesAsync()
+                    .ConfigureAwait(false))
+                .Count();
 
-            Assert.IsTrue(invoice.InvoiceId == 870, $"Ожидаемый InvoiceId = 870, фактический = {invoice.InvoiceId}.");
-            Assert.IsTrue(branches.Count() >= 30, $"Количество веток GitHub должно быть больше или равно 30, но фактически равно {branches.Count()}.");
+            LogHelper.WriteText("Проверка InvoiceId...");
+            Assert.AreEqual(870, invoice.InvoiceId, $"Фактический InvoiceId равняется {invoice.InvoiceId}, а ожидалось 870.");
+            LogHelper.WriteText("Успешно!!!");
+
+            LogHelper.WriteText("Проверка количества веток GitHub...");
+            Assert.AreEqual(30, branchesCount, $"Фактическое количество веток GitHub равняется {branchesCount}, а ожидалось 30.");
+            LogHelper.WriteText("Успешно!!!");
         }
 
-        [Description("Проверяет, что коллекция веток содержит ожидаемое значение")]
+        [Description("Проверяет, что в коллекции веток GitHub присутствует ожидаемая ветка.")]
         [DynamicData(nameof(GetData), DynamicDataSourceType.Method)]
         [TestMethod]
         public async Task Check_BranchesCollection_Positive(object expectedBranch)
@@ -77,10 +83,12 @@ namespace ApiTests.GithubTests
             LogHelper.WriteValue("Фактическая коллекция веток", branches);
             LogHelper.WriteValue("Ожидаемая ветка", expectedBranch);
 
+            LogHelper.WriteText("Проверка коллекции веток GitHub...");
             CollectionAssert.Contains(
                 branchesCollection,
                 JsonHelper.ObjectToString(expectedBranch),
-                "Ожидаемая ветка не входит в коллекцию фактических веток");
+                "В фактической коллекции веток GitHub отсутствует ожидаемая ветка.");
+            LogHelper.WriteText("Успешно!!!");
         }
     }
 }

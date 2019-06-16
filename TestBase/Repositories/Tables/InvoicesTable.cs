@@ -3,9 +3,10 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using TestBase.DataBase.Entities;
+using TestBase.Helpers;
+using TestBase.Repositories.Entities;
 
-namespace TestBase.DataBase.Tables
+namespace TestBase.Repositories.Tables
 {
     /// <summary>
     /// Таблица Invoices.
@@ -27,8 +28,14 @@ namespace TestBase.DataBase.Tables
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                var invoices = await connection.GetListAsync<Invoices>(new {UserId = userId}).ConfigureAwait(false);
-                return invoices.FirstOrDefault();
+                LogHelper.WriteText($"SELECT TOP 1 (*) FROM Invoices WHERE UserId = '{userId}'");
+                var invoice = (await connection
+                    .GetListAsync<Invoices>(new {UserId = userId})
+                    .ConfigureAwait(false))
+                    .FirstOrDefault();
+
+                LogHelper.WriteValue("Invoice найден", invoice);
+                return invoice;
             }
         }
     }

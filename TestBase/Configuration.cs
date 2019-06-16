@@ -54,7 +54,7 @@
 
         // Другое
         public const string DateTimeFormat = "dddd, dd MMMM yyyy HH:mm:ss.fff";
-        public const string Language = "en-US";
+        public const string Language = "ru-RU";
 
         #endregion
 

@@ -1,4 +1,4 @@
-﻿using TestBase.Data.PocoClasses;
+﻿using TestBase.Data.Poco;
 
 namespace TestBase.RestApi.Services.GitHub.Responses
 {
