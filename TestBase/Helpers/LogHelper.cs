@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace TestBase.Helpers
@@ -28,10 +29,7 @@ namespace TestBase.Helpers
         /// <param name="request">Отправляемый http запрос.</param>
         public static void WriteRequest(HttpRequestMessage request)
         {
-            var message = new StringBuilder(
-                $"Type: {request.Method}"
-                + $"{Environment.NewLine}"
-                + $"URI: {request.RequestUri}");
+            var message = new StringBuilder($"{request.Method} {request.RequestUri}");
 
             if (request.Headers != null)
             {
@@ -45,8 +43,9 @@ namespace TestBase.Helpers
 
             if (request.Content != null)
             {
-                message.Append($"{Environment.NewLine}Content:");
-                message.Append($"{Environment.NewLine}{JsonHelper.ObjectToString(request.Content)}");
+                message.Append($"{Environment.NewLine}"
+                    + $"Content:{Environment.NewLine}"
+                    + $"{JsonHelper.ObjectToString(request.Content)}");
             }
 
             WriteText(message.ToString());
@@ -55,19 +54,37 @@ namespace TestBase.Helpers
         /// <summary>
         /// Пишет в консоль http ответ.
         /// </summary>
+        /// <param name="headers">Headers, которые вернул http запрос</param>
         /// <param name="poco">POCO класс.</param>
-        public static void WriteResponse(object poco)
+        public static void WriteResponse(HttpResponseHeaders headers, object poco)
         {
-            WriteText("Response:"
-                + $"{Environment.NewLine}"
-                + $"{JsonHelper.ObjectToString(poco)}");
+            var message = new StringBuilder();
+
+            if (headers != null)
+            {
+                foreach (var header in headers)
+                {
+                    if (header.Key.ToLower().Contains("id"))
+                    {
+                        message.Append($"{JsonHelper.ObjectToString(header)}{Environment.NewLine}");
+                    }
+                }
+
+                if (message.Length > 0)
+                {
+                    message.Insert(0, $"Headers:{Environment.NewLine}");
+                }
+            }
+
+            message.Append($"Response:{Environment.NewLine}{JsonHelper.ObjectToString(poco)}");
+            WriteText(message.ToString());
         }
 
         /// <summary>
         /// Пишет в консоль сообщение.
         /// </summary>
         /// <param name="messageText">Текст сообщения.</param>
-        public static void WriteText(string messageText)
+        private static void WriteText(string messageText)
         {
             Console.WriteLine($"{DateTime.UtcNow.ToString(ConfigurationHelper.TestConfig["Culture&Format:DateTimeFormat"], new CultureInfo(ConfigurationHelper.TestConfig["Culture&Format:Language"]))}"
                 + $"{Environment.NewLine}"

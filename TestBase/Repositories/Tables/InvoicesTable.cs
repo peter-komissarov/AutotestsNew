@@ -28,13 +28,12 @@ namespace TestBase.Repositories.Tables
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                LogHelper.WriteText($"SELECT TOP 1 (*) FROM Invoices WHERE UserId = '{userId}'");
                 var invoice = (await connection
                     .GetListAsync<Invoices>(new {UserId = userId})
                     .ConfigureAwait(false))
                     .FirstOrDefault();
 
-                LogHelper.WriteValue("Invoice founded", invoice);
+                LogHelper.WriteValue($"Founded Invoice by UserId = '{userId}'", invoice);
                 return invoice;
             }
         }

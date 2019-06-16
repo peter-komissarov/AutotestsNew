@@ -11,7 +11,7 @@ namespace TestBase.RestApi
         /// <summary>
         /// Headers для http запросов к сервису GitHub.
         /// </summary>
-        public static Dictionary<string, string> GitHub;
+        public static readonly Dictionary<string, string> GitHub;
 
         static Headers()
         {

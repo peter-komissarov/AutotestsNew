@@ -5,7 +5,7 @@ namespace TestBase.Helpers
 {
     public static class ConfigurationHelper
     {
-        public static IConfigurationRoot TestConfig;
+        public static readonly IConfigurationRoot TestConfig;
 
         static ConfigurationHelper()
         {

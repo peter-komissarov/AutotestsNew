@@ -126,7 +126,7 @@ namespace TestBase.RestApi
 
             if (withLog)
             {
-                LogHelper.WriteResponse(poco);
+                LogHelper.WriteResponse(response.Headers, poco);
             }
 
             return poco;
