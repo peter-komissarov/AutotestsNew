@@ -18,9 +18,11 @@ namespace TestBase.Helpers
         /// <param name="value">Значение объекта.</param>
         public static void WriteValue(string description, object value)
         {
-            WriteText($"{description}:"
+            var stringBuilder = new StringBuilder(
+                $"{description}:"
                 + $"{Environment.NewLine}"
                 + $"{JsonHelper.ObjectToString(value)}");
+            WriteText(stringBuilder);
         }
 
         /// <summary>
@@ -29,26 +31,26 @@ namespace TestBase.Helpers
         /// <param name="request">Отправляемый http запрос.</param>
         public static void WriteRequest(HttpRequestMessage request)
         {
-            var message = new StringBuilder($"{request.Method} {request.RequestUri}");
+            var stringBuilder = new StringBuilder($"{request.Method} {request.RequestUri}");
 
             if (request.Headers != null)
             {
-                message.Append($"{Environment.NewLine}Headers:");
+                stringBuilder.Append($"{Environment.NewLine}Headers:");
 
                 foreach (var header in request.Headers)
                 {
-                    message.Append($"{Environment.NewLine}{JsonHelper.ObjectToString(header)}");
+                    stringBuilder.Append($"{Environment.NewLine}{JsonHelper.ObjectToString(header)}");
                 }
             }
 
             if (request.Content != null)
             {
-                message.Append($"{Environment.NewLine}"
+                stringBuilder.Append($"{Environment.NewLine}"
                     + $"Content:{Environment.NewLine}"
                     + $"{JsonHelper.ObjectToString(request.Content)}");
             }
 
-            WriteText(message.ToString());
+            WriteText(stringBuilder);
         }
 
         /// <summary>
@@ -58,7 +60,7 @@ namespace TestBase.Helpers
         /// <param name="poco">POCO класс.</param>
         public static void WriteResponse(HttpResponseHeaders headers, object poco)
         {
-            var message = new StringBuilder();
+            var stringBuilder = new StringBuilder();
 
             if (headers != null)
             {
@@ -66,29 +68,29 @@ namespace TestBase.Helpers
                 {
                     if (header.Key.ToLower().Contains("id"))
                     {
-                        message.Append($"{JsonHelper.ObjectToString(header)}{Environment.NewLine}");
+                        stringBuilder.Append($"{JsonHelper.ObjectToString(header)}{Environment.NewLine}");
                     }
                 }
 
-                if (message.Length > 0)
+                if (stringBuilder.Length > 0)
                 {
-                    message.Insert(0, $"Headers:{Environment.NewLine}");
+                    stringBuilder.Insert(0, $"Headers:{Environment.NewLine}");
                 }
             }
 
-            message.Append($"Response:{Environment.NewLine}{JsonHelper.ObjectToString(poco)}");
-            WriteText(message.ToString());
+            stringBuilder.Append($"Response:{Environment.NewLine}{JsonHelper.ObjectToString(poco)}");
+            WriteText(stringBuilder);
         }
 
         /// <summary>
         /// Пишет в консоль сообщение.
         /// </summary>
-        /// <param name="messageText">Текст сообщения.</param>
-        private static void WriteText(string messageText)
+        /// <param name="stringBuilder">Текст сообщения.</param>
+        private static void WriteText(StringBuilder stringBuilder)
         {
             Console.WriteLine($"{DateTime.UtcNow.ToString(ConfigurationHelper.TestConfig["Culture&Format:DateTimeFormat"], new CultureInfo(ConfigurationHelper.TestConfig["Culture&Format:Language"]))}"
                 + $"{Environment.NewLine}"
-                + $"{messageText}{Environment.NewLine}");
+                + $"{stringBuilder}{Environment.NewLine}");
         }
     }
 }

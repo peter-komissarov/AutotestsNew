@@ -13,20 +13,13 @@ namespace TestBase.Repositories.Tables
     /// </summary>
     public class InvoicesTable
     {
-        private readonly string _connectionString;
-
-        public InvoicesTable(string connectionString = null)
-        {
-            _connectionString = connectionString ?? ConfigurationHelper.TestConfig["ConnectionStrings:Epayments"];
-        }
-
         /// <summary>
         /// Асинхронно возвращает единственную запись из таблицы Invoices по параметру UserId, либо null.
         /// </summary>
         /// <param name="userId">Идентификатор пользователя.</param>
         public async Task<Invoices> GetByUserIdAsync(Guid userId)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            using (var connection = new SqlConnection(ConfigurationHelper.TestConfig["ConnectionStrings:Epayments"]))
             {
                 var invoice = (await connection
                     .GetListAsync<Invoices>(new {UserId = userId})
