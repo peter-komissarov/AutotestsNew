@@ -61,13 +61,13 @@ namespace ApiTests.GithubTests
                     .ConfigureAwait(false))
                 .Count();
 
-            LogHelper.WriteText("Проверка InvoiceId...");
-            Assert.AreEqual(870, invoice.InvoiceId, $"Фактический InvoiceId равняется {invoice.InvoiceId}, а ожидалось 870.");
-            LogHelper.WriteText("Успешно!!!");
+            LogHelper.WriteText("Assert InvoiceId...");
+            Assert.AreEqual(870, invoice.InvoiceId, $"Actual InvoiceId is {invoice.InvoiceId}, but 870 expected.");
+            LogHelper.WriteText("Success!!!");
 
-            LogHelper.WriteText("Проверка количества веток GitHub...");
-            Assert.AreEqual(30, branchesCount, $"Фактическое количество веток GitHub равняется {branchesCount}, а ожидалось 30.");
-            LogHelper.WriteText("Успешно!!!");
+            LogHelper.WriteText("Assert GitHub brunches count...");
+            Assert.AreEqual(30, branchesCount, $"Actual GitHub brunches count is {branchesCount}, but 30 expected.");
+            LogHelper.WriteText("Success!!!");
         }
 
         [Description("Проверяет, что в коллекции веток GitHub присутствует ожидаемая ветка.")]
@@ -80,15 +80,15 @@ namespace ApiTests.GithubTests
                 .ConfigureAwait(false);
 
             var branchesCollection = branches.Select(JsonHelper.ObjectToString).ToArray();
-            LogHelper.WriteValue("Фактическая коллекция веток", branches);
-            LogHelper.WriteValue("Ожидаемая ветка", expectedBranch);
+            LogHelper.WriteValue("Actual GitHub branches collection", branches);
+            LogHelper.WriteValue("Expected GitHub branch", expectedBranch);
 
-            LogHelper.WriteText("Проверка коллекции веток GitHub...");
+            LogHelper.WriteText("Assert GitHub brunches collection...");
             CollectionAssert.Contains(
                 branchesCollection,
                 JsonHelper.ObjectToString(expectedBranch),
-                "В фактической коллекции веток GitHub отсутствует ожидаемая ветка.");
-            LogHelper.WriteText("Успешно!!!");
+                "Actual GitHub brunches collection does not contain an expected brunch.");
+            LogHelper.WriteText("Success!!!");
         }
     }
 }

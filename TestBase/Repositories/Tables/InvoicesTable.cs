@@ -34,7 +34,7 @@ namespace TestBase.Repositories.Tables
                     .ConfigureAwait(false))
                     .FirstOrDefault();
 
-                LogHelper.WriteValue("Invoice найден", invoice);
+                LogHelper.WriteValue("Invoice founded", invoice);
                 return invoice;
             }
         }

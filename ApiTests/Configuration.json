@@ -4,7 +4,7 @@
   },
   "Culture&Format": {
     "DateTimeFormat": "dddd, dd MMMM yyyy HH:mm:ss.fff",
-    "Language": "ru-RU"
+    "Language": "en-US" //"ru-RU"
   },
   "HostNames": {
     "GitHub": "https://api.github.com/"
