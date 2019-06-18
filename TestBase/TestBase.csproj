@@ -2,14 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Configurations>Debug;Release;Prod;Test;Sandbox;Production</Configurations>
+    <Configurations>Test;Sandbox;Production</Configurations>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|AnyCPU'">
@@ -28,12 +24,13 @@
     <PackageReference Include="Dapper.SimpleCRUD" Version="2.1.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Data\Enums\" />
     <Folder Include="Data\Сonstants\" />
-    <Folder Include="RestApi\Services\GitHub\Requests\" />
+    <Folder Include="Http\Clients\GitHub\Requests\" />
   </ItemGroup>
 
 </Project>

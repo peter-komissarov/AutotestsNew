@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using TestBase.Data.Poco;
 using TestBase.Helpers;
-using TestBase.Repositories.Tables;
-using TestBase.RestApi.Services.GitHub;
-using TestBase.RestApi.Services.GitHub.Responses;
+using TestBase.Http.Clients.GitHub;
+using TestBase.Http.Clients.GitHub.Responses;
+using TestBase.SqlServer.Tables;
 
 namespace ApiTests.GithubTests
 {
@@ -48,7 +48,7 @@ namespace ApiTests.GithubTests
         [TestCaseSource(nameof(GetData))]
         public async Task Check_BranchesCollection_Positive(BranchResponse expectedBranch)
         {
-            var branches = await new GitHubService()
+            var branches = await new GitHubClient()
                 .GetBranchesAsync()
                 .ConfigureAwait(false);
 
@@ -71,7 +71,7 @@ namespace ApiTests.GithubTests
                 .GetByUserIdAsync(new Guid("01C4D55C-B94D-473B-B4FE-B84CC6F77DC3"))
                 .ConfigureAwait(false);
 
-            var branches = await new GitHubService()
+            var branches = await new GitHubClient()
                 .GetBranchesAsync()
                 .ConfigureAwait(false);
 

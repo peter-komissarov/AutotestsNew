@@ -1,7 +1,7 @@
 ﻿using System;
 using Dapper;
 
-namespace TestBase.Repositories.Entities
+namespace TestBase.SqlServer.Entities
 {
     /// <summary>
     /// Сущность инвойса.

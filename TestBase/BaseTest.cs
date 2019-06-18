@@ -1,19 +1,14 @@
 ﻿using NUnit.Framework;
-using TestBase;
 
-namespace ApiTests
+namespace TestBase
 {
-    /// <summary>
-    /// Базовый класс для API авто-тестов
-    /// </summary>
-    [Parallelizable(ParallelScope.All)]
-    public abstract class BaseApiTest : BaseTest
+    public abstract class BaseTest
     {
         /// <summary>
         /// Выполняется один раз перед запуском всех тестов в прогоне.
         /// </summary>
         [OneTimeSetUp]
-        public override void OneTimeSetUp()
+        public virtual void OneTimeSetUp()
         {
         }
 
@@ -21,7 +16,7 @@ namespace ApiTests
         /// Запускается перед запуском каждого теста.
         /// </summary>
         [SetUp]
-        public override void SetUp()
+        public virtual void SetUp()
         {
         }
 
@@ -29,7 +24,7 @@ namespace ApiTests
         /// Запускается после каждого теста.
         /// </summary>
         [TearDown]
-        public override void TearDown()
+        public virtual void TearDown()
         {
         }
 
@@ -37,7 +32,7 @@ namespace ApiTests
         /// Запускается один раз после выполнения всех тестов в прогоне.
         /// </summary>
         [OneTimeTearDown]
-        public override void OneTimeTearDown()
+        public virtual void OneTimeTearDown()
         {
         }
     }

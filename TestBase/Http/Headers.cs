@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TestBase.Helpers;
 
-namespace TestBase.RestApi
+namespace TestBase.Http
 {
     /// <summary>
     /// Headers для http запросов.
@@ -18,7 +18,7 @@ namespace TestBase.RestApi
             GitHub = new Dictionary<string, string>
             {
                 {"Accept", "application/vnd.github.v3+json"},
-                {"Accept-Language", ConfigHelper.Config["Culture&Format:Language"]},
+                {"Accept-Language", ConfigHelper.Config["FormatSettings:Language"]},
                 {"User-Agent", "HttpClientFactory-Sample"}
             };
         }

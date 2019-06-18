@@ -1,24 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TestBase.Helpers;
 
-namespace TestBase.RestApi
+namespace TestBase.Http.Clients
 {
     /// <summary>
     /// Реализация REST API клиента.
     /// </summary>
-    public sealed class Client : IDisposable
+    public class Client : IDisposable
     {
-        private static readonly HttpClient _client;
         private CancellationToken _cancellationToken;
-
+        private static readonly HttpClient _client;
         private bool _disposed;
         private HttpRequestMessage _request;
         private string _uri;
+
+        public Client()
+        {
+            _cancellationToken = new CancellationToken();
+            _request = new HttpRequestMessage();
+        }
 
         static Client()
         {
@@ -26,13 +33,6 @@ namespace TestBase.RestApi
             {
                 Timeout = new TimeSpan(0, 0, 0, 0, Timeout.Infinite)
             };
-        }
-
-        public Client(string uri)
-        {
-            _cancellationToken = new CancellationToken();
-            _request = new HttpRequestMessage();
-            _uri = uri;
         }
 
         /// <summary>
@@ -122,6 +122,7 @@ namespace TestBase.RestApi
         public async Task<T> PutJsonAsync<T>(bool withLog = true)
         {
             _request.Method = HttpMethod.Put;
+            SetLanguage(ref _request);
             _request.RequestUri = new Uri(_uri);
 
             if (withLog)
@@ -139,7 +140,7 @@ namespace TestBase.RestApi
             return poco;
         }
 
-        private static async Task<T> ReceivePocoAsync<T>(HttpResponseMessage response, bool withLog = true)
+        private async Task<T> ReceivePocoAsync<T>(HttpResponseMessage response, bool withLog = true)
         {
             var responseText = await response
                 .Content
@@ -154,6 +155,14 @@ namespace TestBase.RestApi
             }
 
             return poco;
+        }
+
+        private void SetLanguage(ref HttpRequestMessage request)
+        {
+            if (request.Headers.AcceptLanguage.Any().Equals(false))
+            {
+                request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(ConfigHelper.Config["FormatSettings:Language"]));
+            }
         }
 
         /// <summary>
@@ -236,6 +245,17 @@ namespace TestBase.RestApi
             var cancellationTokenSource = new CancellationTokenSource();
             cancellationTokenSource.CancelAfter(timeout);
             _cancellationToken = cancellationTokenSource.Token;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Добавляет Uri к http запросу.
+        /// </summary>
+        /// <param name="uri">Унифицированный идентификатор ресурса.</param>
+        public Client WithUri(string uri)
+        {
+            _uri = uri;
 
             return this;
         }

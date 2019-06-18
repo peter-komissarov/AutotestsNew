@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using TestBase.Helpers;
-using TestBase.Repositories.Entities;
+using TestBase.SqlServer.Entities;
 
-namespace TestBase.Repositories.Tables
+namespace TestBase.SqlServer.Tables
 {
     /// <summary>
     /// Таблица Invoices.

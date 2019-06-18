@@ -11,11 +11,7 @@
 
     <StartupObject />
 
-    <Configurations>Debug;Release;Prod;Test;Sandbox;Production</Configurations>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>bin\Debug\</OutputPath>
+    <Configurations>Test;Sandbox;Production</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Production|AnyCPU'">
