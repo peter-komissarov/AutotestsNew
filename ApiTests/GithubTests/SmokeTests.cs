@@ -53,12 +53,12 @@ namespace ApiTests.GithubTests
                 .ConfigureAwait(false);
 
             var branchesCollection = branches
-                .Select(JsonHelper.ObjectToString)
+                .Select(JsonHelper.Serialize)
                 .ToArray();
 
             CollectionAssert.Contains(
                 branchesCollection,
-                JsonHelper.ObjectToString(expectedBranch),
+                JsonHelper.Serialize(expectedBranch),
                 "Actual GitHub brunches collection does not contain an expected brunch.");
         }
 

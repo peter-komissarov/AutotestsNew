@@ -21,7 +21,7 @@ namespace TestBase.Helpers
             var stringBuilder = new StringBuilder(
                 $"{description}:"
                 + $"{Environment.NewLine}"
-                + $"{JsonHelper.ObjectToString(value)}");
+                + $"{JsonHelper.Serialize(value)}");
 
             WriteText(stringBuilder.ToString());
         }
@@ -40,7 +40,7 @@ namespace TestBase.Helpers
 
                 foreach (var header in request.Headers)
                 {
-                    stringBuilder.Append($"{Environment.NewLine}{JsonHelper.ObjectToString(header)}");
+                    stringBuilder.Append($"{Environment.NewLine}{JsonHelper.Serialize(header)}");
                 }
             }
 
@@ -49,7 +49,7 @@ namespace TestBase.Helpers
                 stringBuilder.Append(
                     $"{Environment.NewLine}"
                     + $"With content:{Environment.NewLine}"
-                    + $"{JsonHelper.ObjectToString(request.Content)}");
+                    + $"{JsonHelper.Serialize(request.Content)}");
             }
 
             WriteText(stringBuilder.ToString());
@@ -70,7 +70,7 @@ namespace TestBase.Helpers
                 {
                     if (header.Key.ToLower().Contains("id"))
                     {
-                        stringBuilder.Append($"{JsonHelper.ObjectToString(header)}{Environment.NewLine}");
+                        stringBuilder.Append($"{JsonHelper.Serialize(header)}{Environment.NewLine}");
                     }
                 }
 
@@ -80,7 +80,7 @@ namespace TestBase.Helpers
                 }
             }
 
-            stringBuilder.Append($"Response content:{Environment.NewLine}{JsonHelper.ObjectToString(poco)}");
+            stringBuilder.Append($"Response content:{Environment.NewLine}{JsonHelper.Serialize(poco)}");
             WriteText(stringBuilder.ToString());
         }
 

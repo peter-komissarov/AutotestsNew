@@ -147,7 +147,7 @@ namespace TestBase.Http.Clients
                 .ReadAsStringAsync()
                 .ConfigureAwait(false);
 
-            var poco = JsonHelper.StringToPoco<T>(responseText);
+            var poco = JsonHelper.Deserialize<T>(responseText);
 
             if (withLog)
             {
@@ -195,7 +195,7 @@ namespace TestBase.Http.Clients
         /// <param name="content">Контент.</param>
         public Client WithContent(object content)
         {
-            _request.Content = JsonHelper.ObjectToStringContent(content);
+            _request.Content = ObjectHelper.ToStringContent(content);
 
             return this;
         }
