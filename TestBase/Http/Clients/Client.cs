@@ -161,7 +161,7 @@ namespace TestBase.Http.Clients
         {
             if (request.Headers.AcceptLanguage.Any().Equals(false))
             {
-                request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(ConfigHelper.Config["Format:Language"]));
+                request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(ConfigHelper.Configuration["Format:Language"]));
             }
         }
 

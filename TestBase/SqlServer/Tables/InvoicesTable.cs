@@ -21,7 +21,7 @@ namespace TestBase.SqlServer.Tables
         {
             LogHelper.WriteText($"Searching Invoice by UserId = '{userId}' in db...");
 
-            using (var connection = new SqlConnection(ConfigHelper.Config["ConnectionString:Epayments"]))
+            using (var connection = new SqlConnection(ConfigHelper.Configuration["ConnectionString:Epayments"]))
             {
                 var invoice = (await connection
                     .GetListAsync<Invoices>(new {UserId = userId})

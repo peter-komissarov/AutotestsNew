@@ -90,7 +90,7 @@ namespace TestBase.Helpers
         /// <param name="message">Текст сообщения.</param>
         public static void WriteText(string message)
         {
-            var config = ConfigHelper.Config;
+            var config = ConfigHelper.Configuration;
 
             Console.WriteLine(
                 $"{DateTime.UtcNow.ToString(config["Format:DateTime"], new CultureInfo(config["Format:Language"]))}"

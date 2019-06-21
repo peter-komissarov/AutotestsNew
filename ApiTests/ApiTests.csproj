@@ -47,28 +47,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Configuration.json">
+    <None Update="AppSettings.json">
       <TransformOnBuild>true</TransformOnBuild>
       <Link></Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Configuration.Production.json">
+    <None Update="AppSettings.Production.json">
       <IsTransformFile>true</IsTransformFile>
-      <DependentUpon>Configuration.json</DependentUpon>
+      <DependentUpon>AppSettings.json</DependentUpon>
       <TransformOnBuild>false</TransformOnBuild>
       <Link></Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Configuration.Sandbox.json">
+    <None Update="AppSettings.Sandbox.json">
       <IsTransformFile>true</IsTransformFile>
-      <DependentUpon>Configuration.json</DependentUpon>
+      <DependentUpon>AppSettings.json</DependentUpon>
       <TransformOnBuild>false</TransformOnBuild>
       <Link></Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Configuration.Test.json">
+    <None Update="AppSettings.Test.json">
       <IsTransformFile>true</IsTransformFile>
-      <DependentUpon>Configuration.json</DependentUpon>
+      <DependentUpon>AppSettings.json</DependentUpon>
       <TransformOnBuild>false</TransformOnBuild>
       <Link></Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

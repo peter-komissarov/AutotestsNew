@@ -5,14 +5,14 @@ namespace TestBase.Helpers
 {
     public static class ConfigHelper
     {
-        public static readonly IConfigurationRoot Config;
+        public static readonly IConfigurationRoot Configuration;
 
         static ConfigHelper()
         {
-            Config = new ConfigurationBuilder()
+            Configuration = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile(
-                    "Configuration.json",
+                    "AppSettings.json",
                     false,
                     true)
                 .Build();
