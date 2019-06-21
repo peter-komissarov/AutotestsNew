@@ -1,12 +1,18 @@
 ﻿{
-  "ConnectionStrings": {
+  "BaseUri": {
+    "GitHub": "https://api.github.com/"
+  },
+  "ConnectionString": {
     "Epayments": "data source=SCV-BD01.swiftcom.corp;initial catalog=test_epayments;Integrated Security=false;User ID=dev;Password=uchMeIvank;Max Pool Size=1024;Pooling=true;Connection Timeout=15"
   },
-  "FormatSettings": {
+  "Format": {
     "DateTime": "dddd, dd MMMM yyyy HH:mm:ss.fff",
     "Language": "en-US" //"ru-RU"
   },
-  "HostNames": {
-    "GitHub": "https://api.github.com/"
+  "Header": {
+    "GitHub": {
+      "Accept": "application/vnd.github.v3+json",
+      "User-Agent": "HttpClientFactory-Sample"
+    }
   }
 }

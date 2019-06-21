@@ -93,7 +93,7 @@ namespace TestBase.Helpers
             var config = ConfigHelper.Config;
 
             Console.WriteLine(
-                $"{DateTime.UtcNow.ToString(config["FormatSettings:DateTime"], new CultureInfo(config["FormatSettings:Language"]))}"
+                $"{DateTime.UtcNow.ToString(config["Format:DateTime"], new CultureInfo(config["Format:Language"]))}"
                 + $"{Environment.NewLine}"
                 + $"{message}{Environment.NewLine}"
                 + $"{Environment.NewLine}");
