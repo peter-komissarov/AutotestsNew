@@ -1,5 +1,4 @@
-﻿
-namespace TestBase
+﻿namespace TestBase
 {
     public abstract class BaseTest
     {

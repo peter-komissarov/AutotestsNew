@@ -5,9 +5,10 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TestBase.Extensions;
 using TestBase.Helpers;
 
-namespace TestBase.Http.Clients
+namespace TestBase.Clients
 {
     /// <summary>
     /// Реализация REST API клиента.

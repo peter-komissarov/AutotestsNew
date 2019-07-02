@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestBase.Data.Poco
+namespace TestBase.TestData.Poco
 {
     /// <summary>
     /// Сущность для фиксации изменений программного кода в текущей ветке.

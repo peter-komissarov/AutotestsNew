@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TestBase.Clients.GitHub;
+using TestBase.DataBase.Tables;
 using TestBase.Helpers;
-using TestBase.Http.Clients.GitHub;
-using TestBase.SqlServer.Tables;
 
 namespace ApiTests.GithubTests
 {
@@ -18,18 +18,18 @@ namespace ApiTests.GithubTests
         private static IEnumerable<object[]> GetData()
         {
             yield return new object[]
+            {
+                new
                 {
-                    new
+                    Name = "RP-vs-MVC/ra",
+                    Commit = new
                     {
-                        Name = "RP-vs-MVC/ra",
-                        Commit = new
-                        {
-                            Sha = "4d8264c44c39ef92e6b632edcef3cc74adb8925d",
-                            Url = new Uri("https://api.github.com/repos/aspnet/AspNetCore.Docs/commits/4d8264c44c39ef92e6b632edcef3cc74adb8925d")
-                        },
-                        Protected = false
-                    }
-                };
+                        Sha = "4d8264c44c39ef92e6b632edcef3cc74adb8925d",
+                        Url = new Uri("https://api.github.com/repos/aspnet/AspNetCore.Docs/commits/4d8264c44c39ef92e6b632edcef3cc74adb8925d")
+                    },
+                    Protected = false
+                }
+            };
 
             yield return new object[]
             {
@@ -49,7 +49,6 @@ namespace ApiTests.GithubTests
         [Description("Проверяет, что в коллекции веток GitHub присутствует ожидаемая ветка.")]
         [DataTestMethod]
         [DynamicData(nameof(GetData), DynamicDataSourceType.Method)]
-
         public async Task Positive_CheckBranchesCollection_Async(object expectedBranch)
         {
             var branches = await new GitHubClient()

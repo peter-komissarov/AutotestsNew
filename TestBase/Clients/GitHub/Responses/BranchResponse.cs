@@ -1,6 +1,6 @@
-﻿using TestBase.Data.Poco;
+﻿using TestBase.TestData.Poco;
 
-namespace TestBase.Http.Clients.GitHub.Responses
+namespace TestBase.Clients.GitHub.Responses
 {
     /// <summary>
     /// Формат ответа от конечной точки API '/branches'.

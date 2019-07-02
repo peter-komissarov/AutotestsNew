@@ -3,10 +3,10 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using TestBase.DataBase.Entities;
 using TestBase.Helpers;
-using TestBase.SqlServer.Entities;
 
-namespace TestBase.SqlServer.Tables
+namespace TestBase.DataBase.Tables
 {
     /// <summary>
     /// Таблица Invoices.

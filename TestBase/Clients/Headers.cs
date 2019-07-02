@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TestBase.Helpers;
 
-namespace TestBase.Http
+namespace TestBase.Clients
 {
     /// <summary>
     /// Headers для http запросов.

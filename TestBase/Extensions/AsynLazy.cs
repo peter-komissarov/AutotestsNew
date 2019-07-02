@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace TestBase.Helpers
+namespace TestBase.Extensions
 {
     /// <summary>
     /// Предоставляет методы для асинхронной инициализации типа Lazy.

@@ -30,9 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Enums\" />
-    <Folder Include="Data\Сonstants\" />
-    <Folder Include="Http\Clients\GitHub\Requests\" />
+    <Folder Include="TestData\Enums\" />
+    <Folder Include="TestData\Сonstants\" />
   </ItemGroup>
 
 </Project>

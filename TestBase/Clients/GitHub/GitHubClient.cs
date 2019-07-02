@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using TestBase.Clients.GitHub.Responses;
 using TestBase.Helpers;
-using TestBase.Http.Clients.GitHub.Responses;
 
-namespace TestBase.Http.Clients.GitHub
+namespace TestBase.Clients.GitHub
 {
     /// <summary>
     /// Реализация клиента Github.
