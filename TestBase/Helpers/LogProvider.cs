@@ -9,7 +9,7 @@ namespace TestBase.Helpers
     /// <summary>
     /// Предоставляет вспомогательные методы, для вывода сообщений в консоль.
     /// </summary>
-    public static class LogHelper
+    public static class LogProvider
     {
         /// <summary>
         /// Пишет в консоль описание объекта и его значение.
@@ -18,10 +18,7 @@ namespace TestBase.Helpers
         /// <param name="value">Значение объекта.</param>
         public static void WriteValue(string description, object value)
         {
-            var stringBuilder = new StringBuilder(
-                $"{description}:"
-                + $"{Environment.NewLine}"
-                + $"{JsonHelper.Serialize(value)}");
+            var stringBuilder = new StringBuilder($"{description}:{Environment.NewLine}{JsonProvider.Serialize(value)}");
 
             WriteText(stringBuilder.ToString());
         }
@@ -36,20 +33,17 @@ namespace TestBase.Helpers
 
             if (request.Headers != null)
             {
-                stringBuilder.Append($"{Environment.NewLine}With headers:");
+                stringBuilder.Append($"{Environment.NewLine}Request headers:");
 
                 foreach (var header in request.Headers)
                 {
-                    stringBuilder.Append($"{Environment.NewLine}{JsonHelper.Serialize(header)}");
+                    stringBuilder.Append($"{Environment.NewLine}{JsonProvider.Serialize(header)}");
                 }
             }
 
             if (request.Content != null)
             {
-                stringBuilder.Append(
-                    $"{Environment.NewLine}"
-                    + $"With content:{Environment.NewLine}"
-                    + $"{JsonHelper.Serialize(request.Content)}");
+                stringBuilder.Append($"{Environment.NewLine}Request content:{Environment.NewLine}{JsonProvider.Serialize(request.Content)}");
             }
 
             WriteText(stringBuilder.ToString());
@@ -70,7 +64,7 @@ namespace TestBase.Helpers
                 {
                     if (header.Key.ToLower().Contains("id"))
                     {
-                        stringBuilder.Append($"{JsonHelper.Serialize(header)}{Environment.NewLine}");
+                        stringBuilder.Append($"{JsonProvider.Serialize(header)}{Environment.NewLine}");
                     }
                 }
 
@@ -80,7 +74,7 @@ namespace TestBase.Helpers
                 }
             }
 
-            stringBuilder.Append($"Response content:{Environment.NewLine}{JsonHelper.Serialize(poco)}");
+            stringBuilder.Append($"Response content:{Environment.NewLine}{JsonProvider.Serialize(poco)}");
             WriteText(stringBuilder.ToString());
         }
 
@@ -90,7 +84,7 @@ namespace TestBase.Helpers
         /// <param name="message">Текст сообщения.</param>
         public static void WriteText(string message)
         {
-            var config = ConfigHelper.Configuration;
+            var config = AppSettingsProvider.Configuration;
 
             Console.WriteLine(
                 $"{DateTime.UtcNow.ToString(config["Format:DateTime"], new CultureInfo(config["Format:Language"]))}"

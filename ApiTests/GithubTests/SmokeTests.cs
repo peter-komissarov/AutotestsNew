@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NUnit.Framework;
-using TestBase.Data.Poco;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestBase.Helpers;
 using TestBase.Http.Clients.GitHub;
-using TestBase.Http.Clients.GitHub.Responses;
 using TestBase.SqlServer.Tables;
 
 namespace ApiTests.GithubTests
@@ -14,57 +12,63 @@ namespace ApiTests.GithubTests
     /// <summary>
     /// Тесты сервиса GitHub.
     /// </summary>
-    [TestFixture]
+    [TestClass]
     public class SmokeTests : BaseApiTest
     {
-        private static IEnumerable<BranchResponse> GetData()
+        private static IEnumerable<object[]> GetData()
         {
-            yield return
-                new BranchResponse
+            yield return new object[]
                 {
-                    Name = "RP-vs-MVC/ra",
-                    Commit = new Commit
+                    new
                     {
-                        Sha = "4d8264c44c39ef92e6b632edcef3cc74adb8925d",
-                        Url = new Uri("https://api.github.com/repos/aspnet/AspNetCore.Docs/commits/4d8264c44c39ef92e6b632edcef3cc74adb8925d")
-                    },
-                    Protected = false
+                        Name = "RP-vs-MVC/ra",
+                        Commit = new
+                        {
+                            Sha = "4d8264c44c39ef92e6b632edcef3cc74adb8925d",
+                            Url = new Uri("https://api.github.com/repos/aspnet/AspNetCore.Docs/commits/4d8264c44c39ef92e6b632edcef3cc74adb8925d")
+                        },
+                        Protected = false
+                    }
                 };
 
-            yield return new BranchResponse
+            yield return new object[]
             {
-                Name = "2/ODATA/security/ra",
-                Commit = new Commit
+                new
                 {
-                    Sha = "b6473109fb38d38a20415ee0a27e74b4ac57bc06",
-                    Url = new Uri("https://api.github.com/repos/aspnet/AspNetCore.Docs/commits/b6473109fb38d38a20415ee0a27e74b4ac57bc06")
-                },
-                Protected = false
+                    Name = "2/ODATA/security/ra",
+                    Commit = new
+                    {
+                        Sha = "b6473109fb38d38a20415ee0a27e74b4ac57bc06",
+                        Url = new Uri("https://api.github.com/repos/aspnet/AspNetCore.Docs/commits/b6473109fb38d38a20415ee0a27e74b4ac57bc06")
+                    },
+                    Protected = false
+                }
             };
         }
 
         [Description("Проверяет, что в коллекции веток GitHub присутствует ожидаемая ветка.")]
-        [Test]
-        [TestCaseSource(nameof(GetData))]
-        public async Task Check_BranchesCollection_Positive(BranchResponse expectedBranch)
+        [DataTestMethod]
+        [DynamicData(nameof(GetData), DynamicDataSourceType.Method)]
+
+        public async Task Positive_CheckBranchesCollection_Async(object expectedBranch)
         {
             var branches = await new GitHubClient()
                 .GetBranchesAsync()
                 .ConfigureAwait(false);
 
             var branchesCollection = branches
-                .Select(JsonHelper.Serialize)
+                .Select(JsonProvider.Serialize)
                 .ToArray();
 
             CollectionAssert.Contains(
                 branchesCollection,
-                JsonHelper.Serialize(expectedBranch),
+                JsonProvider.Serialize(expectedBranch),
                 "Actual GitHub brunches collection does not contain an expected brunch.");
         }
 
         [Description("Проверяет, что количество веток GitHub равняется 30.")]
-        [Test]
-        public async Task Check_BranchesCount_Positive()
+        [TestMethod]
+        public async Task Positive_CheckBranchesCount_Async()
         {
             // тестирование запроса к базе данных
             var invoice = await new InvoicesTable()

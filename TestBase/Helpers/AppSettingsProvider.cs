@@ -3,11 +3,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace TestBase.Helpers
 {
-    public static class ConfigHelper
+    public static class AppSettingsProvider
     {
         public static readonly IConfigurationRoot Configuration;
 
-        static ConfigHelper()
+        static AppSettingsProvider()
         {
             Configuration = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)

@@ -6,7 +6,7 @@ namespace TestBase.Helpers
     /// <summary>
     /// Предоставляет вспомогательные методы для работы с типом Object.
     /// </summary>
-    public static class ObjectHelper
+    public static class ObjectProvider
     {
         /// <summary>
         /// Преобразует объект в string content.
@@ -14,7 +14,7 @@ namespace TestBase.Helpers
         /// <param name="content">Http content в виде анонимного объекта.</param>
         public static StringContent ToStringContent(object content)
         {
-            var json = JsonHelper.Serialize(content);
+            var json = JsonProvider.Serialize(content);
 
             return new StringContent(json, Encoding.UTF8, "application/json");
         }

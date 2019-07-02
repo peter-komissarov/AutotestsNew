@@ -6,7 +6,7 @@ namespace TestBase.Helpers
     /// <summary>
     ///Предоставляет вспомогательные методы для преобразования строк.
     /// </summary>
-    public static class StringHelper
+    public static class StringProvider
     {
         /// <summary>
         /// Возвращает абсолютный Uri для Get и Delete http запросов.

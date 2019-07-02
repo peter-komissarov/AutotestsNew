@@ -19,16 +19,14 @@ namespace TestBase.SqlServer.Tables
         /// <param name="userId">Идентификатор пользователя.</param>
         public async Task<Invoices> GetByUserIdAsync(Guid userId)
         {
-            LogHelper.WriteText($"Searching Invoice by UserId = '{userId}' in db...");
+            LogProvider.WriteText($"Searching Invoice by UserId = '{userId}' in db...");
 
-            using (var connection = new SqlConnection(ConfigHelper.Configuration["ConnectionString:Epayments"]))
-            {
-                var invoice = (await connection
-                    .GetListAsync<Invoices>(new {UserId = userId})
-                    .ConfigureAwait(false)).FirstOrDefault();
+            using var connection = new SqlConnection(AppSettingsProvider.Configuration["ConnectionString:Epayments"]);
+            var invoices = await connection
+                .GetListAsync<Invoices>(new {UserId = userId})
+                .ConfigureAwait(false);
 
-                return invoice;
-            }
+            return invoices.FirstOrDefault();
         }
     }
 }

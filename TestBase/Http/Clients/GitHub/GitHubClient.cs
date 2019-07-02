@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using TestBase.Helpers;
 using TestBase.Http.Clients.GitHub.Responses;
 
@@ -15,7 +14,7 @@ namespace TestBase.Http.Clients.GitHub
 
         public GitHubClient()
         {
-            _branchesUri = ConfigHelper.Configuration["BaseUri:GitHub"] + "repos/aspnet/AspNetCore.Docs/branches";
+            _branchesUri = AppSettingsProvider.Configuration["BaseUri:GitHub"] + "repos/aspnet/AspNetCore.Docs/branches";
         }
 
         /// <summary>
@@ -24,17 +23,16 @@ namespace TestBase.Http.Clients.GitHub
         /// <param name="withLog">Требуется ли выводить в консоль http запрос и ответ.</param>
         public async Task<IEnumerable<BranchResponse>> GetBranchesAsync(bool withLog = true)
         {
-            //var test = ConfigHelper.Configuration.GetSection("Header").Bind()
-            using (var client = new Client())
-            {
-                var branches = await client
-                    .WithHeaders(Headers.GitHub)
-                    .WithUri(_branchesUri)
-                    .GetAsync<IEnumerable<BranchResponse>>(withLog)
-                    .ConfigureAwait(false);
+            using var client = new Client()
+                .WithHeaders(Headers.GitHub)
+                .WithLog(withLog)
+                .WithUri(_branchesUri);
 
-                return branches;
-            }
+            var branches = await client
+                .GetAsync<IEnumerable<BranchResponse>>()
+                .ConfigureAwait(false);
+
+            return branches;
         }
     }
 }

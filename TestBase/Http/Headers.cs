@@ -18,7 +18,7 @@ namespace TestBase.Http
             GitHub = new Dictionary<string, string>
             {
                 {"Accept", "application/vnd.github.v3+json"},
-                {"Accept-Language", ConfigHelper.Configuration["Format:Language"]},
+                {"Accept-Language", AppSettingsProvider.Configuration["Format:Language"]},
                 {"User-Agent", "HttpClientFactory-Sample"}
             };
         }

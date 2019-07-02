@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -15,48 +14,54 @@ namespace TestBase.Http.Clients
     /// </summary>
     public class Client : IDisposable
     {
+        private static readonly AsyncLazy<HttpClient> _asyncLazyClient = new AsyncLazy<HttpClient>(CreateHttpClient);
+
         private CancellationToken _cancellationToken;
-        private static readonly HttpClient _client;
         private bool _disposed;
         private HttpRequestMessage _request;
         private string _uri;
+        private bool _withLog;
 
         public Client()
         {
             _cancellationToken = new CancellationToken();
             _request = new HttpRequestMessage();
+            _withLog = true;
+
+            SetLanguage(ref _request);
         }
 
-        static Client()
+        private static HttpClient CreateHttpClient()
         {
-            _client = new HttpClient
+            return new HttpClient
             {
                 Timeout = new TimeSpan(0, 0, 0, 0, Timeout.Infinite)
             };
+        }
+
+        private static async Task<HttpClient> GetHttpClientAsync()
+        {
+            return await _asyncLazyClient;
         }
 
         /// <summary>
         /// Асинхронно выполняет delete http запрос.
         /// </summary>
         /// <typeparam name="T">POCO класс.</typeparam>
-        /// <param name="withLog">Требуется ли выводить в консоль http запрос и ответ.</param>
         /// <returns>Ответ от API в формате POCO класс.</returns>
-        public async Task<T> DeleteAsync<T>(bool withLog = true)
+        public async Task<T> DeleteAsync<T>()
         {
             _request.Method = HttpMethod.Delete;
             _request.RequestUri = new Uri(_uri);
 
-            if (withLog)
+            if (_withLog)
             {
-                LogHelper.WriteRequest(_request);
+                LogProvider.WriteRequest(_request);
             }
 
-            var response = await _client
-                .SendAsync(_request, _cancellationToken)
-                .ConfigureAwait(false);
-
-            var poco = await ReceivePocoAsync<T>(response, withLog)
-                .ConfigureAwait(false);
+            var client = await GetHttpClientAsync().ConfigureAwait(false);
+            var response = await client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
+            var poco = await ReceivePocoAsync<T>(response).ConfigureAwait(false);
 
             return poco;
         }
@@ -65,24 +70,20 @@ namespace TestBase.Http.Clients
         /// Асинхронно выполняет get http запрос.
         /// </summary>
         /// <typeparam name="T">POCO класс.</typeparam>
-        /// <param name="withLog">Требуется ли выводить в консоль http запрос и ответ.</param>
         /// <returns>Ответ от API в формате POCO класс.</returns>
-        public async Task<T> GetAsync<T>(bool withLog = true)
+        public async Task<T> GetAsync<T>()
         {
             _request.Method = HttpMethod.Get;
             _request.RequestUri = new Uri(_uri);
 
-            if (withLog)
+            if (_withLog)
             {
-                LogHelper.WriteRequest(_request);
+                LogProvider.WriteRequest(_request);
             }
 
-            var response = await _client
-                .SendAsync(_request, _cancellationToken)
-                .ConfigureAwait(false);
-
-            var poco = await ReceivePocoAsync<T>(response, withLog)
-                .ConfigureAwait(false);
+            var client = await GetHttpClientAsync().ConfigureAwait(false);
+            var response = await client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
+            var poco = await ReceivePocoAsync<T>(response).ConfigureAwait(false);
 
             return poco;
         }
@@ -91,24 +92,20 @@ namespace TestBase.Http.Clients
         /// Асинхронно выполняет post http запрос.
         /// </summary>
         /// <typeparam name="T">POCO класс.</typeparam>
-        /// <param name="withLog">Требуется ли выводить в консоль http запрос и ответ.</param>
         /// <returns>Ответ от API в формате POCO класс.</returns>
-        public async Task<T> PostJsonAsync<T>(bool withLog = true)
+        public async Task<T> PostJsonAsync<T>()
         {
             _request.Method = HttpMethod.Post;
             _request.RequestUri = new Uri(_uri);
 
-            if (withLog)
+            if (_withLog)
             {
-                LogHelper.WriteRequest(_request);
+                LogProvider.WriteRequest(_request);
             }
 
-            var response = await _client
-                .SendAsync(_request, _cancellationToken)
-                .ConfigureAwait(false);
-
-            var poco = await ReceivePocoAsync<T>(response, withLog)
-                .ConfigureAwait(false);
+            var client = await GetHttpClientAsync().ConfigureAwait(false);
+            var response = await client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
+            var poco = await ReceivePocoAsync<T>(response).ConfigureAwait(false);
 
             return poco;
         }
@@ -117,41 +114,34 @@ namespace TestBase.Http.Clients
         /// Асинхронно выполняет put http запрос.
         /// </summary>
         /// <typeparam name="T">POCO класс.</typeparam>
-        /// <param name="withLog">Требуется ли выводить в консоль http запрос и ответ.</param>
         /// <returns>Ответ от API в формате POCO класс.</returns>
-        public async Task<T> PutJsonAsync<T>(bool withLog = true)
+        public async Task<T> PutJsonAsync<T>()
         {
             _request.Method = HttpMethod.Put;
             SetLanguage(ref _request);
             _request.RequestUri = new Uri(_uri);
 
-            if (withLog)
+            if (_withLog)
             {
-                LogHelper.WriteRequest(_request);
+                LogProvider.WriteRequest(_request);
             }
 
-            var response = await _client
-                .SendAsync(_request, _cancellationToken)
-                .ConfigureAwait(false);
-
-            var poco = await ReceivePocoAsync<T>(response, withLog)
-                .ConfigureAwait(false);
+            var client = await GetHttpClientAsync().ConfigureAwait(false);
+            var response = await client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
+            var poco = await ReceivePocoAsync<T>(response).ConfigureAwait(false);
 
             return poco;
         }
 
-        private async Task<T> ReceivePocoAsync<T>(HttpResponseMessage response, bool withLog = true)
+        public async Task<T> ReceivePocoAsync<T>(HttpResponseMessage response)
         {
-            var responseText = await response
-                .Content
-                .ReadAsStringAsync()
-                .ConfigureAwait(false);
+            var content = response.Content;
+            var responseText = await content.ReadAsStringAsync().ConfigureAwait(false);
+            var poco = JsonProvider.Deserialize<T>(responseText);
 
-            var poco = JsonHelper.Deserialize<T>(responseText);
-
-            if (withLog)
+            if (_withLog)
             {
-                LogHelper.WriteResponse(response.Headers, poco);
+                LogProvider.WriteResponse(response.Headers, poco);
             }
 
             return poco;
@@ -159,10 +149,7 @@ namespace TestBase.Http.Clients
 
         private void SetLanguage(ref HttpRequestMessage request)
         {
-            if (request.Headers.AcceptLanguage.Any().Equals(false))
-            {
-                request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(ConfigHelper.Configuration["Format:Language"]));
-            }
+            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(AppSettingsProvider.Configuration["Format:Language"]));
         }
 
         /// <summary>
@@ -172,7 +159,9 @@ namespace TestBase.Http.Clients
         /// <param name="password">Пароль.</param>
         public Client WithBasicAuth(string login, string password)
         {
-            var base64String = Convert.ToBase64String(Encoding.UTF8.GetBytes(login + ":" + password));
+            var authHeaderString = $"{login}:{password}";
+            var authHeaderBytes = Encoding.UTF8.GetBytes(authHeaderString);
+            var base64String = Convert.ToBase64String(authHeaderBytes);
             WithHeaders(new Dictionary<string, string> {{"Authorization", "Basic " + base64String}});
 
             return this;
@@ -195,7 +184,7 @@ namespace TestBase.Http.Clients
         /// <param name="content">Контент.</param>
         public Client WithContent(object content)
         {
-            _request.Content = ObjectHelper.ToStringContent(content);
+            _request.Content = ObjectProvider.ToStringContent(content);
 
             return this;
         }
@@ -227,12 +216,25 @@ namespace TestBase.Http.Clients
         }
 
         /// <summary>
+        /// Включает, либо выключает запись лога запроса и ответа в консоль
+        /// </summary>
+        /// <param name="withLog">Требуется ли выводить в консоль http запрос и ответ?</param>
+        /// <returns></returns>
+        public Client WithLog(bool withLog)
+        {
+            _withLog = withLog;
+
+            return this;
+        }
+
+        /// <summary>
         /// Добавляет параметры к Uri.
         /// </summary>
         /// <param name="parameters">Параметры.</param>
         public Client WithParams(object parameters = null)
         {
-            _uri = StringHelper.GetAbsoluteUri(_uri, parameters);
+            _uri = StringProvider.GetAbsoluteUri(_uri, parameters);
+
             return this;
         }
 
@@ -260,28 +262,24 @@ namespace TestBase.Http.Clients
             return this;
         }
 
-        private void Dispose(bool disposing)
+        private void RunDispose()
         {
             if (_disposed)
             {
                 return;
             }
 
-            if (disposing)
-            {
-                _request?.Dispose();
-                _request = null;
-
-                _cancellationToken = CancellationToken.None;
-                _uri = string.Empty;
-            }
+            _request?.Dispose();
+            _request = null;
+            _cancellationToken = CancellationToken.None;
+            _uri = string.Empty;
 
             _disposed = true;
         }
 
         public void Dispose()
         {
-            Dispose(true);
+            RunDispose();
             GC.SuppressFinalize(this);
         }
     }
