@@ -21,7 +21,7 @@ namespace TestBase.Clients.GitHub
         /// Возвращает список веток GitHub.
         /// </summary>
         /// <param name="withLog">Требуется ли выводить в консоль http запрос и ответ.</param>
-        public async Task<IEnumerable<BranchResponse>> GetBranchesAsync(bool withLog = true)
+        public async ValueTask<IEnumerable<BranchResponse>> GetBranchesAsync(bool withLog = true)
         {
             using var client = new Client()
                 .WithHeaders(Headers.GitHub)

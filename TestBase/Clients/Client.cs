@@ -40,7 +40,7 @@ namespace TestBase.Clients
             };
         }
 
-        private static async Task<HttpClient> GetHttpClientAsync()
+        private static async ValueTask<HttpClient> GetHttpClientAsync()
         {
             return await _asyncLazyClient;
         }
@@ -50,7 +50,7 @@ namespace TestBase.Clients
         /// </summary>
         /// <typeparam name="T">POCO класс.</typeparam>
         /// <returns>Ответ от API в формате POCO класс.</returns>
-        public async Task<T> DeleteAsync<T>()
+        public async ValueTask<T> DeleteAsync<T>()
         {
             _request.Method = HttpMethod.Delete;
             _request.RequestUri = new Uri(_uri);
@@ -72,7 +72,7 @@ namespace TestBase.Clients
         /// </summary>
         /// <typeparam name="T">POCO класс.</typeparam>
         /// <returns>Ответ от API в формате POCO класс.</returns>
-        public async Task<T> GetAsync<T>()
+        public async ValueTask<T> GetAsync<T>()
         {
             _request.Method = HttpMethod.Get;
             _request.RequestUri = new Uri(_uri);
@@ -94,7 +94,7 @@ namespace TestBase.Clients
         /// </summary>
         /// <typeparam name="T">POCO класс.</typeparam>
         /// <returns>Ответ от API в формате POCO класс.</returns>
-        public async Task<T> PostJsonAsync<T>()
+        public async ValueTask<T> PostJsonAsync<T>()
         {
             _request.Method = HttpMethod.Post;
             _request.RequestUri = new Uri(_uri);
@@ -116,7 +116,7 @@ namespace TestBase.Clients
         /// </summary>
         /// <typeparam name="T">POCO класс.</typeparam>
         /// <returns>Ответ от API в формате POCO класс.</returns>
-        public async Task<T> PutJsonAsync<T>()
+        public async ValueTask<T> PutJsonAsync<T>()
         {
             _request.Method = HttpMethod.Put;
             SetLanguage(ref _request);
@@ -134,7 +134,7 @@ namespace TestBase.Clients
             return poco;
         }
 
-        public async Task<T> ReceivePocoAsync<T>(HttpResponseMessage response)
+        public async ValueTask<T> ReceivePocoAsync<T>(HttpResponseMessage response)
         {
             var content = response.Content;
             var responseText = await content.ReadAsStringAsync().ConfigureAwait(false);
