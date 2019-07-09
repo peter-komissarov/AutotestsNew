@@ -12,6 +12,7 @@ namespace ApiTests.GithubTests
     /// <summary>
     /// Тесты сервиса GitHub.
     /// </summary>
+    [Parallelizable(ParallelScope.All)]
     [TestFixture]
     public class SmokeTests
     {
@@ -49,13 +50,12 @@ namespace ApiTests.GithubTests
                 .GetBranchesAsync()
                 .ConfigureAwait(false);
 
-            var branchesCollection = branches
-                .Select(JsonProvider.Serialize)
-                .ToArray();
+            var branchesCollection = branches.Select(JsonProvider.Serialize);
+            var expected = JsonProvider.Serialize(expectedBranch);
 
             CollectionAssert.Contains(
                 branchesCollection,
-                JsonProvider.Serialize(expectedBranch),
+                expected,
                 "Actual GitHub brunches collection does not contain an expected brunch.");
         }
 

@@ -10,11 +10,18 @@ namespace TestBase.Clients.GitHub
     /// </summary>
     public class GitHubClient
     {
-        private readonly string _branchesUri;
+        private static readonly string _branchesUri;
+        private static readonly Dictionary<string, string> _gitHubHeaders;
 
-        public GitHubClient()
+        static GitHubClient()
         {
-            _branchesUri = AppSettingsProvider.Configuration["BaseUri:GitHub"] + "repos/aspnet/AspNetCore.Docs/branches";
+            _branchesUri = $"{AppSettingsProvider.Configuration["BaseUri:GitHub"]}repos/aspnet/AspNetCore.Docs/branches";
+            _gitHubHeaders = new Dictionary<string, string>
+            {
+                {"Accept", "application/vnd.github.v3+json"},
+                {"Accept-Language", AppSettingsProvider.Configuration["Format:Language"]},
+                {"User-Agent", "HttpClientFactory-Sample"}
+            };
         }
 
         /// <summary>
@@ -24,7 +31,7 @@ namespace TestBase.Clients.GitHub
         public async ValueTask<IEnumerable<BranchResponse>> GetBranchesAsync(bool withLog = true)
         {
             using var client = new Client()
-                .WithHeaders(Headers.GitHub)
+                .WithHeaders(_gitHubHeaders)
                 .WithLog(withLog)
                 .WithUri(_branchesUri);
 

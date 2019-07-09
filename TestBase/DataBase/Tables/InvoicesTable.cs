@@ -18,11 +18,12 @@ namespace TestBase.DataBase.Tables
         /// <param name="userId">Идентификатор пользователя.</param>
         public async ValueTask<Invoices> GetByUserIdAsync(Guid userId)
         {
+            LogProvider.WriteText($"SELECT TOP (1) * FROM Invoices WHERE UserId = '{userId}'");
+
             using var connection = new SqlConnection(AppSettingsProvider.Configuration["ConnectionString:Epayments"]);
             var invoice = await connection
                 .QueryFirstOrDefaultAsync<Invoices>("SELECT TOP (1) * FROM Invoices WHERE UserId = @userId", new {userId})
                 .ConfigureAwait(false);
-            LogProvider.WriteText($"SELECT TOP (1) * FROM Invoices WHERE UserId = {userId}{Environment.NewLine}{JsonProvider.Serialize(invoice)}");
 
             return invoice;
         }

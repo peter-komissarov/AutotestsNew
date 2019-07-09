@@ -5,7 +5,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using TestBase.Extensions;
 using TestBase.Helpers;
 
 namespace TestBase.Clients
@@ -15,34 +14,26 @@ namespace TestBase.Clients
     /// </summary>
     public class Client : IDisposable
     {
-        private static readonly AsyncLazy<HttpClient> _asyncLazyClient = new AsyncLazy<HttpClient>(CreateHttpClient);
-
+        private static readonly HttpClient _client;
         private CancellationToken _cancellationToken;
         private bool _disposed;
         private HttpRequestMessage _request;
         private string _uri;
         private bool _withLog;
 
-        public Client()
+        static Client()
         {
-            _cancellationToken = new CancellationToken();
-            _request = new HttpRequestMessage();
-            _withLog = true;
-
-            SetLanguage(ref _request);
-        }
-
-        private static HttpClient CreateHttpClient()
-        {
-            return new HttpClient
+            _client = new HttpClient
             {
                 Timeout = new TimeSpan(0, 0, 0, 0, Timeout.Infinite)
             };
         }
 
-        private static async ValueTask<HttpClient> GetHttpClientAsync()
+        public Client()
         {
-            return await _asyncLazyClient;
+            _cancellationToken = new CancellationToken();
+            _request = new HttpRequestMessage();
+            _withLog = true;
         }
 
         /// <summary>
@@ -60,8 +51,7 @@ namespace TestBase.Clients
                 LogProvider.WriteRequest(_request);
             }
 
-            var client = await GetHttpClientAsync().ConfigureAwait(false);
-            var response = await client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
+            using var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
             var poco = await ReceivePocoAsync<T>(response).ConfigureAwait(false);
 
             return poco;
@@ -82,8 +72,7 @@ namespace TestBase.Clients
                 LogProvider.WriteRequest(_request);
             }
 
-            var client = await GetHttpClientAsync().ConfigureAwait(false);
-            var response = await client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
+            using var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
             var poco = await ReceivePocoAsync<T>(response).ConfigureAwait(false);
 
             return poco;
@@ -104,8 +93,7 @@ namespace TestBase.Clients
                 LogProvider.WriteRequest(_request);
             }
 
-            var client = await GetHttpClientAsync().ConfigureAwait(false);
-            var response = await client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
+            using var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
             var poco = await ReceivePocoAsync<T>(response).ConfigureAwait(false);
 
             return poco;
@@ -119,7 +107,6 @@ namespace TestBase.Clients
         public async ValueTask<T> PutJsonAsync<T>()
         {
             _request.Method = HttpMethod.Put;
-            SetLanguage(ref _request);
             _request.RequestUri = new Uri(_uri);
 
             if (_withLog)
@@ -127,8 +114,7 @@ namespace TestBase.Clients
                 LogProvider.WriteRequest(_request);
             }
 
-            var client = await GetHttpClientAsync().ConfigureAwait(false);
-            var response = await client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
+            using var response = await _client.SendAsync(_request, _cancellationToken).ConfigureAwait(false);
             var poco = await ReceivePocoAsync<T>(response).ConfigureAwait(false);
 
             return poco;
@@ -148,9 +134,12 @@ namespace TestBase.Clients
             return poco;
         }
 
-        private void SetLanguage(ref HttpRequestMessage request)
+        public Client SetLanguage(ref HttpRequestMessage request, string language = null)
         {
-            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(AppSettingsProvider.Configuration["Format:Language"]));
+            var acceptLanguage = language ?? AppSettingsProvider.Configuration["Format:Language"];
+            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue(acceptLanguage));
+
+            return this;
         }
 
         /// <summary>
